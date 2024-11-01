@@ -43,8 +43,8 @@ displaySessionMessage();
                     <th>Прибытие</th>
                     <th>Места</th>
                     <th>Цена</th>
-                    <th>Класс полета</th> 
-                    <th>Почта авиакомпании</th> 
+                    <th>Билет</th> 
+                    <th>Почта стадиона</th> 
                     <th>Действия</th>
                 </tr>
             </thead>

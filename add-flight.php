@@ -172,7 +172,7 @@ if (isset($_POST['flight_but'])) {
                         2px solid #5c5c5c; background-color: whitesmoke !important;
                         font-weight: bold !important;
                         width:80%" required>
-                        <option value="" disabled selected>Из</option>';
+                        <option value="" disabled selected>Команда 1</option>';
 
                                 // Просмотр результатов и создание вариантов для каждого аэропорта
                                 while ($row = mysqli_fetch_assoc($result)) {
@@ -200,7 +200,7 @@ if (isset($_POST['flight_but'])) {
                         2px solid #5c5c5c; background-color: whitesmoke !important;
                         font-weight: bold !important;
                         width:80%" required>
-                        <option value="" disabled selected> В </option>';
+                        <option value="" disabled selected> Команда 2 </option>';
 
                                 // Просмотр результатов и создание варианта для каждого аэропорта
                                 while ($row = mysqli_fetch_assoc($result)) {
@@ -233,9 +233,9 @@ if (isset($_POST['flight_but'])) {
                         <div class="col">
     <select class="form-control" name="flight_class" required>
         <option value="" disabled selected>Выберите класс:</option>
-        <option value="Economy">Эконом</option>
-        <option value="Business">Бизнес</option>
-        <option value="First Class">Первый класс</option>
+        <option value="Economy">Обычный</option>
+        <option value="Business">VIP</option>
+        <option value="First Class">VIP+++</option>
     </select>
 </div>
 

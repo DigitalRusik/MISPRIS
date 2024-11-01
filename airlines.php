@@ -27,7 +27,7 @@ displaySessionMessage();
     <main>
 
         <div class="container mt-5">
-        <h2 style="text-align: center;">Авиакомпании</h2>
+        <h2 style="text-align: center;">Авиакомпании (Стадионы)</h2>
 
             <!-- Добавление кнопки -->
 
@@ -52,7 +52,7 @@ displaySessionMessage();
                 <tr>
                     <th style="width: 20%;">Почта</th>
                     <th>Пароль</th>
-                    <th>Название авиакомпании</th>
+                    <th>Название стадиона</th>
                     <th>Логотип</th>
                     <th>Действие</th>
                 </tr>
