@@ -2,7 +2,7 @@
 
 <div>
     <div class="after-nav">
-        <div class="fixed-text">Добро пожаловать в Чемпионат</div>
+        <div class="fixed-text">Добро пожаловать в Чемпионат по футболу</div>
         <div id="text-transition" class="transition-text"></div> <!--span texts from js-->
     </div>
     <script src="js/after-nav-script.js"></script>
@@ -13,7 +13,7 @@
 </main>
 
 <div class="partner-airline">
-    <h1>Партнеры авиакомпании</h1>
+    <h1>Участники турнира:</h1>
 
     <?php
     // Включить подключение к файлу .php
