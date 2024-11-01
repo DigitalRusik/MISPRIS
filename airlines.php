@@ -14,7 +14,7 @@ displaySessionMessage();
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Добавление авиакомпании</title>
+    <title>Стадионы</title>
     <link rel="stylesheet" href="css/style.css" />
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -27,17 +27,17 @@ displaySessionMessage();
     <main>
 
         <div class="container mt-5">
-        <h2 style="text-align: center;">Авиакомпании (Стадионы)</h2>
+        <h2 style="text-align: center;">Стадионы</h2>
 
             <!-- Добавление кнопки -->
 
             <div class="d-flex justify-content-center" style="height:">
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addAirlineModal">Добавить авиакомпанию</button>
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addAirlineModal">Добавить стадион</button>
 </div>
 
 <!-- Форма поиска авиакомпании по названию -->
 <form method="GET" class="d-flex justify-content-center mt-3">
-            <input type="text" class="form-control w-50" name="search_airline" placeholder="Введите название авиакомпании" value="<?php echo isset($_GET['search_airline']) ? $_GET['search_airline'] : ''; ?>">
+            <input type="text" class="form-control w-50" name="search_airline" placeholder="Введите название стадиона" value="<?php echo isset($_GET['search_airline']) ? $_GET['search_airline'] : ''; ?>">
             <button type="submit" class="btn btn-primary ml-2">Поиск</button>
         </form>
 
@@ -92,15 +92,15 @@ displaySessionMessage();
 
                             if ($emailCheckResult->num_rows > 0) {
                                 // Авиакомпания с таким же адресом электронной почты уже существует
-                                setSessionMessage("Авиакомпания с такой электронной почтой уже зарегистрирована");
+                                setSessionMessage("Стадион с такой электронной почтой уже зарегистрирована");
                             } elseif ($nameCheckResult->num_rows > 0) {
                                 // Авиакомпания с таким названием уже существует
-                                setSessionMessage("Название авиакомпании уже занято");
+                                setSessionMessage("Название стадиона уже занято");
                             } else {
                                 //Повторяющиеся записи не найдены, выполните запрос INSERT query
                                 $insertSql = "INSERT INTO airline VALUES ('$newEmail', '$newPassword', '$newAirlineName', '$newLogoPath')";
                                 if ($con->query($insertSql) === TRUE) {
-                                    setSessionMessage("Авиакомпания успешно добавлена");
+                                    setSessionMessage("Стадион успешно добавлен");
                                 } else {
                                     setSessionMessage("При добавлении записи произошла ошибка");
                                 }
@@ -127,14 +127,14 @@ displaySessionMessage();
                             $updateValues[] = "pass='$editPassword'";
                         }
 
-                        // Проверка, было ли указано новое название авиакомпании
+                        // Проверка, было ли указано новое название стадиона
                         $editAirlineName = $_POST["edit_airline_name"];
                         if (!empty($_POST["edit_airline_name"])) {
                             $nameCheckSql = "SELECT * FROM airline WHERE airline_name = '$editAirlineName'";
                             $nameCheckResult = $con->query($nameCheckSql);
                             if ($nameCheckResult->num_rows > 0) {
-                                // Авиакомпания с таким названием уже существует
-                                setSessionMessage("Название авиакомпании уже занято");
+                                // Стадион с таким названием уже существует
+                                setSessionMessage("Название стадиона уже занято");
                                 header('location: airlines.php');
                                 exit();
                                 
@@ -197,7 +197,7 @@ displaySessionMessage();
                         $deleteSql = "DELETE FROM airline WHERE email = '$deleteEmail'";
 
                         if ($con->query($deleteSql) === TRUE) {
-                            setSessionMessage("Авиакомпания успешно удалена");
+                            setSessionMessage("Стадион успешно удалена");
                         } else {
                             echo 'Error deleting record: ' . $con->error;
                         }
@@ -233,13 +233,13 @@ displaySessionMessage();
                     $con->close();
                     ?>
 
-                    <!-- Добавить авиакомпанию -->
+                    <!-- Добавить стадион -->
                     <div class="modal fade" id="addAirlineModal" tabindex="-1" role="dialog"
                         aria-labelledby="addAirlineModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="addAirlineModalLabel">Добавить авиакомпанию</h5>
+                                    <h5 class="modal-title" id="addAirlineModalLabel">Добавить стадион</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -257,7 +257,7 @@ displaySessionMessage();
                                                 name="new_password" required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="new_airline_name">Название авиакомпании</label>
+                                            <label for="new_airline_name">Название стадиона</label>
                                             <input type="text" class="form-control" id="new_airline_name"
                                                 name="new_airline_name" required>
                                         </div>
@@ -279,7 +279,7 @@ displaySessionMessage();
                     </div>
 
 
-                    <!-- Редактирование авиакомпании -->
+                    <!-- Редактирование стадиона -->
                     <div class="modal fade" id="editAirlineModal" tabindex="-1" role="dialog"
                         aria-labelledby="editAirlineModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -299,7 +299,7 @@ displaySessionMessage();
                                                 name="edit_password">
                                         </div>
                                         <div class="form-group">
-                                            <label for="edit_airline_name">Название авиакомпании</label>
+                                            <label for="edit_airline_name">Название стадиона</label>
                                             <input type="text" class="form-control" id="edit_airline_name"
                                                 name="edit_airline_name">
                                         </div>
@@ -333,7 +333,7 @@ displaySessionMessage();
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                Вы уверены, что хотите удалить эту авиакомпанию?
+                                Вы уверены, что хотите удалить этот стадион?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>

@@ -8,17 +8,17 @@
             </div>
 
             <li class="item">
-                <a href="airlines.php">Авиакомпании</a>
+                <a href="airlines.php">Стадионы</a>
             </li>
 
             <li class="item">
-                <a href="airports.php">Аэропорты</a>
+                <a href="airports.php">Клубы</a>
             </li>
             <li class="item">
-                <a href="add-flight.php">Добавить полеты</a>
+                <a href="add-flight.php">Добавить матч</a>
             </li>
             <li class="item">
-                <a href="show-flight.php">Отобразить полеты</a>
+                <a href="show-flight.php">Отобразить матчи</a>
             </li>
             <li class="item">
                 <a href="booked-flight.php">Забронированные рейсы</a>

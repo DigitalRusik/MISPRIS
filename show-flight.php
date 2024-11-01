@@ -13,7 +13,7 @@ displaySessionMessage();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Удаление рейса</title>
+    <title>Матчи</title>
     <link rel="stylesheet" href="css/style.css" />
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -24,7 +24,7 @@ displaySessionMessage();
     <?php include('includes/admin-nav.php'); ?>
 
     <div class="container mt-5">
-        <h2 style="text-align: center;">Список рейсов</h2>
+        <h2 style="text-align: center;">Список матчей</h2>
       
         <style>
         table {
@@ -36,14 +36,14 @@ displaySessionMessage();
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr>
-                    <th>Авиакомпания</th>
-                    <th>Аэропорт отправления</th>
-                    <th>Аэропорт прибытия</th>
-                    <th>Отправление</th>
-                    <th>Прибытие</th>
-                    <th>Места</th>
-                    <th>Цена</th>
-                    <th>Билет</th> 
+                    <th>Стадион</th>
+                    <th>Команда №1</th>
+                    <th>Команда №2</th>
+                    <th>Время начала матча</th>
+                    <th>Время окончания матча</th>
+                    <th>Места на стадионе</th>
+                    <th>Цена билета</th>
+                    <th>Вид билета</th> 
                     <th>Почта стадиона</th> 
                     <th>Действия</th>
                 </tr>

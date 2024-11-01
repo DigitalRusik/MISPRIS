@@ -49,7 +49,7 @@ if (isset($_POST['flight_but'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
     <link rel="stylesheet" href="form.css">
 
-    <title>Добавить полет</title>
+    <title>Добавить матч</title>
 </head>
 
 <body>
@@ -130,13 +130,13 @@ if (isset($_POST['flight_but'])) {
             }
             ?>
             <div class="bg-light form-out col-md-12">
-                <h3 class="text-secondary text-center">ДОБАВИТЬ ИНФОРМАЦИЮ О РЕЙСЕ</h3>
+                <h3 class="text-secondary text-center">ДОБАВИТЬ ИНФОРМАЦИЮ О МАТЧЕ</h3>
  
                 <form method="POST" class="text-center" action="flightinc.php" style="margin-left: 10%;">
 
                     <div class="form-row mb-4">
                         <div class="col-md-3 p-0">
-                            <h5 class="mb-0 form-name">Отправление</h5>
+                            <h5 class="mb-0 form-name">Дата начала</h5>
                         </div>
                         <div class="col">
                             <input type="date" name="source_date" class="form-control" required>
@@ -148,7 +148,7 @@ if (isset($_POST['flight_but'])) {
 
                     <div class="form-row mb-4">
                         <div class="col-md-3 ">
-                            <h5 class="form-name mb-0">Место прибытия</h5>
+                            <h5 class="form-name mb-0">Дата окончания</h5>
                         </div>
                         <div class="col">
                             <input type="date" name="dest_date" class="form-control" required>
@@ -219,20 +219,20 @@ if (isset($_POST['flight_but'])) {
                     <div class="form-row">
                         <div class="col">
                             <div class="input-group">
-                                <label for="dura">Места:</label>
+                                <label for="dura">Места на стадионе:</label>
                                 <input type="number" name="seats" id="dura" required />
                             </div>
                         </div>
                         <div class="col">
                             <div class="input-group">
-                                <label for="price">Цена:</label>
+                                <label for="price">Цена билета:</label>
                                 <input type="number" style="border: 0px; border-bottom: 2px solid #5c5c5c;" name="price" id="price"
                                     required />
                             </div>
                         </div>
                         <div class="col">
     <select class="form-control" name="flight_class" required>
-        <option value="" disabled selected>Выберите класс:</option>
+        <option value="" disabled selected>Выберите вид билета:</option>
         <option value="Economy">Обычный</option>
         <option value="Business">VIP</option>
         <option value="First Class">VIP+++</option>
@@ -250,7 +250,7 @@ if (isset($_POST['flight_but'])) {
                             if ($result) {
                                 echo '<select class="airline col-md-3 mt-4" name="airline_name" style="border: 0px; border-bottom: 
                               2px solid #5c5c5c; background-color: whitesmoke !important;" required>
-                              <option value="" disabled selected>Выберите авиакомпанию</option>';
+                              <option value="" disabled selected>Выберите стадион</option>';
 
                                 // Просмотр результатов и создание варианта для каждой авиакомпании
                                 while ($row = mysqli_fetch_assoc($result)) {
