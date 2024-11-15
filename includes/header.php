@@ -24,7 +24,7 @@ if(!isset($_SESSION['option'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Easyfly</title>
+  <title>МойФутбол</title>
   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
   <!-- Include the dynamically generated CSS link here -->
   <link rel="stylesheet" type="text/css" href="css/<?php echo $current_page; ?>.css">
