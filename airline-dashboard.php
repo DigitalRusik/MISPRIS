@@ -175,7 +175,7 @@ if ($result->num_rows > 0) {
                 <li><a href="aboutUs.php#targeting-contact">Контакты</a></li>
                 <li><a href="booking-form.php">Сервисы</a></li>
             </ul>
-            <p>&copy 2024 EASYFLY, все права защищены</p>
+            <p>&copy 2024 МойФутбол, все права защищены</p>
         </footer>
 
 </body>

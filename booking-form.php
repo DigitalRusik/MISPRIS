@@ -57,24 +57,24 @@ if (isset($_POST['flight_class'])) {
             <img class="booking-img" src="images/flight-booking.jpg" alt="booking image" width="150" height="150">
         </div>
         <div class="right-column">
-            <h3>Бронирование авиабилетов</h3>
+            <h3>Бронирование билетов на матч</h3>
             <form method="POST" action="available-flights.php">
                 <div class="form-group">
-                    <label for="source">Отправление</label>
+                    <label for="source">Дата начала матча</label>
                     <input type="date" name="source_date" class="form-control" required>
                     <input type="time" name="source_time" class="form-control mt-2" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="dest">Прибытие</label>
+                    <label for="dest">Дата окончания матча</label>
                     <input type="date" name="dest_date" class="form-control" required>
                     <input type="time" name="dest_time" class="form-control mt-2" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="dep_airport">От</label>
+                    <label for="dep_airport">Команда 1:</label>
                     <select name="dep_airport" class="form-control" required>
-                        <option value="" disabled selected>Выберите аэропорт вылета</option>
+                        <option value="" disabled selected>Выберите команду</option>
 
                         <?php
                         include('connection.php');
@@ -100,9 +100,9 @@ if (isset($_POST['flight_class'])) {
                 </div>
 
                 <div class="form-group">
-                    <label for="arr_airport">До</label>
+                    <label for="arr_airport">Команда 2:</label>
                     <select name="arr_airport" class="form-control" required>
-                        <option value="" disabled selected>Выберите аэропорт прибытия</option>
+                        <option value="" disabled selected>Выберите команду</option>
 
                         <?php
                         include('connection.php');
@@ -128,20 +128,20 @@ if (isset($_POST['flight_class'])) {
                 </div>
 
                 <div class="form-group">
-                    <label for="flight_class">Класс полета</label>
+                    <label for="flight_class">Вид билета</label>
                     <select name="flight_class" class="form-control" required>
-                        <option value="" disabled selected>Выберите класс полета</option>
-                        <option value="Economy">Эконом</option>
-                        <option value="Business">Бизнес</option>
-                        <option value="First Class">Первый класс</option>
+                        <option value="" disabled selected>Выберите вид билета</option>
+                        <option value="Economy">Обычный</option>
+                        <option value="Business">VIP</option>
+                        <option value="First Class">VIP+++</option>
                     </select>
                 </div>
 
                 <!-- Добавление поля нащвания авиакомпании -->
                 <div class="form-group">
-                    <label for="airline">Название авиакомпании</label>
+                    <label for="airline">Место проведения</label>
                     <select name="airline_name" class="form-control">
-                        <option value="" selected>Выберите название авиакомпании (необязательно).</option>
+                        <option value="" selected>Выберите место проведения (необязательно).</option>
                         <?php
                         include('connection.php');
 
@@ -167,7 +167,7 @@ if (isset($_POST['flight_class'])) {
                 <!-- Конец поля названия авиакомпании -->
 
                 <!-- Добавить кнопку поиска полета -->
-                <button name="search_flight" type="submit" class="btn btn-primary">Поиск авиабилетов</button>
+                <button name="search_flight" type="submit" class="btn btn-primary">Поиск билетов</button>
             </form>
 
             <?php
@@ -175,7 +175,7 @@ if (isset($_POST['flight_class'])) {
                 echo '<br><h6><p>Пожалуйста <a href = "login.php"> войдите в систему</a>, чтобы забронировать билет</p></h6>';
             }
             if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] == 'admin' or $_SESSION['user_type'] == 'airline')) {
-                echo '<br><h6><p>Login as a customer to book a ticket</p></h6>';
+                echo '<br><h6><p>Войдите как клиент, чтобы забронировать билет</p></h6>';
             }
             ?>
 
@@ -188,7 +188,7 @@ if (isset($_POST['flight_class'])) {
                 <li><a href="aboutUs.php#targeting-contact">Контакты</a></li>
                 <li><a href="booking-form.php">Сервисы</a></li>
             </ul>
-            <p>&copy 2024 EASYFLY, все права защищены</p>
+            <p>&copy 2024 МойФутбол, все права защищены</p>
         <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"

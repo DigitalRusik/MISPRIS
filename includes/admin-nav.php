@@ -21,7 +21,7 @@
                 <a href="show-flight.php">Отобразить матчи</a>
             </li>
             <li class="item">
-                <a href="booked-flight.php">Забронированные рейсы</a>
+                <a href="booked-flight.php">Забронированные билеты на матчи</a>
             </li>
 
             <li class="item">

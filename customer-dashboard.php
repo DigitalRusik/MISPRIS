@@ -55,18 +55,18 @@ if ($result->num_rows > 0) {
 
 
     <div class="container mt-5">
-        <h2>Ваши забронированные рейсы</h2>
+        <h2>Ваши забронированные матчи</h2>
 
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr>
                     <!-- <th>Customer Email</th> -->
-                    <th>Авиакомпания</th>
-                    <th>Аэропорт отправления</th>
-                    <th>Аэропорт прибытия</th>
-                    <th>Отправление</th>
-                    <th>Прибытие</th>
-                    <th>Класс</th>
+                    <th>Стадион</th>
+                    <th>Команда 1</th>
+                    <th>Команда 2</th>
+                    <th>Начало матча</th>
+                    <th>Окончание матча</th>
+                    <th>Тип билета</th>
                     <th>Цена</th>
                     <th>Действия</th>
                 </tr>

@@ -131,7 +131,7 @@ if (isset($_POST["book_button"])) {
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/general.css">
-    <title>Book Flights</title>
+    <title>Бронирование билетов</title>
 </head>
 <body>
     <header>
@@ -146,9 +146,9 @@ if (isset($_POST["book_button"])) {
     <div class="right-column">
         <?php
         if (isset($search_results) && mysqli_num_rows($search_results) > 0) {
-            echo "<h3>Доступные рейсы:</h3>";
+            echo "<h3>Доступные матчи:</h3>";
             echo "<table class='table'>";
-            echo "<thead><tr><th>Аэропорт отправления</th><th>Аэропорт прибытия</th><th>Название авиакомпании</th><th>Места</th><th>Цена, руб.</th><th>Бронирование</th></tr></thead>";
+            echo "<thead><tr><th>Команда 1</th><th>Команда 2</th><th>Место проведения</th><th>Места</th><th>Цена, руб.</th><th>Бронирование</th></tr></thead>";
             echo "<tbody>";
 
             while ($row = mysqli_fetch_assoc($search_results)) {
@@ -184,7 +184,7 @@ if (isset($_POST["book_button"])) {
         <li><a href="aboutUs.php#targeting-contact">Контакты</a></li>
         <li><a href="booking-form.php">Сервисы</a></li>
     </ul>
-    <p>&copy; 2024 EASYFLY, все права защищены</p>
+    <p>&copy; 2024 МойФутбол, все права защищены</p>
 </footer>
 
 
