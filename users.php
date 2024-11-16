@@ -181,7 +181,7 @@ displaySessionMessage();
     </div>
 
     <div class="container mt-5">
-        <h2 style="text-align: center;">Авиакомпании</h2>
+        <h2 style="text-align: center;">Стадионы турнира</h2>
 
         <table class="table table-striped">
             <thead  class="table-dark">
