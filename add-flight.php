@@ -7,7 +7,6 @@ require_once('includes/showMessage.php');
 require 'includes/functions.php';
 displaySessionMessage();
 
-
 require 'connection.php';
 
 if (isset($_POST['flight_but'])) {
@@ -21,25 +20,35 @@ if (isset($_POST['flight_but'])) {
     $seats = $_POST['seats'];
     $price = $_POST['price'];
     $flight_class = $_POST['flight_class']; // Добавлен класс полета
-    $airline_name = $_POST['airline_name']; // Возможно, вам также потребуется получить это значение
+    $airline_name = $_POST['airline_name']; // Получение значения авиакомпании
+    $result = $_POST['result']; // Получение значения результата
 
-    // Выполнить вставку базы данных
-    $sql = "INSERT INTO flight (source_date, source_time, dest_date, dest_time, dep_airport, arr_airport, seats, price, flight_class, airline_name, dep_airport_id, arr_airport_id, airline_email)
-            VALUES ('$source_date', '$source_time', '$dest_date', '$dest_time', '$dep_airport', '$arr_airport', $seats, $price, '$flight_class', '$airline_name', $dep_airport_id, $arr_airport_id, '$airline_email')";
-
-    if (mysqli_query($con, $sql)) {
-        // Запись о полете была успешно добавлена
-        // Вы можете добавить сообщение об успешном завершении или перенаправить на другую страницу
+    // Проверка на наличие всех данных
+    if (empty($source_date) || empty($source_time) || empty($dest_date) || empty($dest_time) || empty($dep_airport) || empty($arr_airport) || empty($seats) || empty($price) || empty($flight_class) || empty($airline_name) || empty($result)) {
+        echo "Пожалуйста, заполните все поля.";
     } else {
-        // Обработка ошибок при добавлении в базу данных
-        echo 'Error: ' . mysqli_error($con);
+        // Подготовленный запрос для предотвращения SQL инъекций
+        $stmt = $con->prepare("INSERT INTO flight (source_date, source_time, dest_date, dest_time, dep_airport, arr_airport, seats, price, flight_class, airline_name, result)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        // Привязка параметров
+        $stmt->bind_param("ssssssiiiss", $source_date, $source_time, $dest_date, $dest_time, $dep_airport, $arr_airport, $seats, $price, $flight_class, $airline_name, $result);
+
+        // Выполнение запроса
+        if ($stmt->execute()) {
+            echo "Данные успешно добавлены!";
+        } else {
+            echo "Ошибка при добавлении данных: " . $stmt->error;
+        }
+
+        // Закрытие подготовленного запроса
+        $stmt->close();
     }
 }
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,10 +57,8 @@ if (isset($_POST['flight_but'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
     <link rel="stylesheet" href="form.css">
-
     <title>Добавить матч</title>
 </head>
-
 <body>
 <style>
         body {
@@ -133,7 +140,6 @@ if (isset($_POST['flight_but'])) {
                 <h3 class="text-secondary text-center">ДОБАВИТЬ ИНФОРМАЦИЮ О МАТЧЕ</h3>
  
                 <form method="POST" class="text-center" action="flightinc.php" style="margin-left: 10%;">
-
                     <div class="form-row mb-4">
                         <div class="col-md-3 p-0">
                             <h5 class="mb-0 form-name">Дата начала</h5>
@@ -147,7 +153,7 @@ if (isset($_POST['flight_but'])) {
                     </div>
 
                     <div class="form-row mb-4">
-                        <div class="col-md-3 ">
+                        <div class="col-md-3">
                             <h5 class="form-name mb-0">Дата окончания</h5>
                         </div>
                         <div class="col">
@@ -231,13 +237,13 @@ if (isset($_POST['flight_but'])) {
                             </div>
                         </div>
                         <div class="col">
-    <select class="form-control" name="flight_class" required>
-        <option value="" disabled selected>Выберите вид билета:</option>
-        <option value="Economy">Обычный</option>
-        <option value="Business">VIP</option>
-        <option value="First Class">VIP+++</option>
-    </select>
-</div>
+                            <select class="form-control" name="flight_class" required>
+                                <option value="" disabled selected>Выберите вид билета:</option>
+                                <option value="Economy">Обычный</option>
+                                <option value="Business">VIP</option>
+                                <option value="First Class">VIP+++</option>
+                            </select>
+                        </div>
 
                         <div class="col">
                             <?php
@@ -265,6 +271,8 @@ if (isset($_POST['flight_but'])) {
                             ?>
                         </div>
                     </div>
+
+
                     <button name="flight_but" type="submit" class="btn btn-success mt-5">
                         <div style="font-size: 1.5rem;">
                             <i class="fa fa-lg fa-arrow-right"></i>Подтвердить
@@ -274,22 +282,5 @@ if (isset($_POST['flight_but'])) {
             </div>
         </div>
     </div>
-
-    <script>
-    $(document).ready(function () {
-      $('.input-group input').focus(function () {
-        me = $(this);
-        $("label[for='" + me.attr('id') + "']").addClass("animate-label");
-      });
-      $('.input-group input').blur(function () {
-        me = $(this);
-        if (me.val() == "") {
-          $("label[for='" + me.attr('id') + "']").removeClass("animate-label");
-        }
-      });
-    });
-  </script>
-
 </body>
-
 </html>

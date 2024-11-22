@@ -23,7 +23,12 @@
             <li class="item">
                 <a href="booked-flight.php">Забронированные билеты на матчи</a>
             </li>
-
+            <li class="item">
+                <a href="shop.php">Магазин атрибутики</a>
+            </li>
+            <li class="item">
+                <a href="players.php">Игроки турнира</a>
+            </li>
             <li class="item">
                 <a href="users.php">Пользователи</a>
             </li>

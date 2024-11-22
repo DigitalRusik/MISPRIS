@@ -43,8 +43,9 @@ displaySessionMessage();
                     <th>Время окончания матча</th>
                     <th>Места на стадионе</th>
                     <th>Цена билета</th>
-                    <th>Вид билета</th> 
-                    <th>Почта стадиона</th> 
+                    <th>Вид билета</th>
+                    <th>Информация</th>
+                    <th>Результат</th>
                     <th>Действия</th>
                 </tr>
             </thead>
@@ -79,7 +80,8 @@ displaySessionMessage();
                         echo "<td>" . $rowFlight["seats"] . "</td>";
                         echo "<td>" . $rowFlight["price"] . "</td>";
                         echo "<td>" . $rowFlight["flight_class"] . "</td>";
-                        echo "<td>" . $rowFlight["airline_email"] . "</td>";
+                        echo "<td>" . $rowFlight["info"] . "</td>";
+                        echo "<td>" . $rowFlight["result"] . "</td>";
                         echo "<td>";
                         echo "<button class='btn btn-danger btn-sm delete-flight' data-id='" . $rowFlight["id"] . "' data-toggle='modal' data-target='#deleteFlightModal'>Удалить</button>";
                         echo "</td>";
@@ -106,7 +108,7 @@ displaySessionMessage();
                             </button>
                         </div>
                         <div class="modal-body">
-                        Вы уверены, что хотите удалить этот рейс?
+                        Вы уверены, что хотите удалить этот матч?
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
