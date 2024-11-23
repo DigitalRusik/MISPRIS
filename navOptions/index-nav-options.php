@@ -2,8 +2,11 @@
 // Определение массива для хранения параметров навигации
 $navOptions = array(
     "Домой" => "index.php",
-    "О нас" => "aboutUs.php",
-    "Забронировать" => "booking-form.php",
+    "Матчи" => "shedule.php",
+    "Турнирная таблица" => "tournamenttable.php",
+    "Магазин" => "shopforuser.php",
+    "Участники" => "playersforuser.php",
+    "Бронировать" => "booking-form.php",
     "Зарегистрироваться" => array(
         "Пользователь" => "signup.php",
         // "Airline" => "#"

@@ -29,7 +29,6 @@ displaySessionMessage();
         <style>
         table {
             margin-left: 5%; /* Сдвигаем таблицу вправо */
-           
         }
         </style>
 
@@ -53,19 +52,41 @@ displaySessionMessage();
                 <?php
                 include("connection.php");
 
-                // Удаление полета
+                // Удаление матча
                 if (isset($_POST["confirm_delete_flight"])) {
                     $deleteFlightId = $_POST["delete_flight_id"];
                     $deleteSql = "DELETE FROM flight WHERE id = '$deleteFlightId'";
                     if ($con->query($deleteSql) === TRUE) {
-                        setSessionMessage("Рейс успешно удален");
+                        setSessionMessage("Матч успешно удален");
                         header('location: show-flight.php');
                     } else {
-                        echo "<script>showModal('errorModal', 'Error deleting flight: " . $con->error . "');</script>";
+                        echo "<script>showModal('errorModal', 'Ошибка при удалении: " . $con->error . "');</script>";
                     }
                 }
 
-                // Отображение оплтеов в таблице
+                // Обновление матча
+                if (isset($_POST["confirm_edit_flight"])) {
+                    $editFlightId = $_POST["edit_flight_id"];
+                    $source_time = $_POST["edit_source_time"];
+                    $dest_time = $_POST["edit_dest_time"];
+                    $info = $_POST["edit_info"];
+                    $result = $_POST["edit_result"];
+
+                    $updateSql = "UPDATE flight 
+                                  SET source_time = '$source_time', 
+                                      dest_time = '$dest_time', 
+                                      info = '$info', 
+                                      result = '$result' 
+                                  WHERE id = '$editFlightId'";
+                    if ($con->query($updateSql) === TRUE) {
+                        setSessionMessage("Информация о матче успешно обновлена");
+                        header('location: show-flight.php');
+                    } else {
+                        echo "<script>showModal('errorModal', 'Ошибка при обновлении: " . $con->error . "');</script>";
+                    }
+                }
+
+                // Отображение матчей в таблице
                 $sqlFlights = "SELECT * FROM flight";
                 $resultFlights = $con->query($sqlFlights);
 
@@ -83,18 +104,20 @@ displaySessionMessage();
                         echo "<td>" . $rowFlight["info"] . "</td>";
                         echo "<td>" . $rowFlight["result"] . "</td>";
                         echo "<td>";
+                        echo "<button class='btn btn-primary btn-sm edit-flight' data-id='" . $rowFlight["id"] . "' data-source_time='" . $rowFlight["source_time"] . "' data-dest_time='" . $rowFlight["dest_time"] . "' data-info='" . $rowFlight["info"] . "' data-result='" . $rowFlight["result"] . "' data-toggle='modal' data-target='#editFlightModal'>Редактировать</button>";
+                        echo " ";
                         echo "<button class='btn btn-danger btn-sm delete-flight' data-id='" . $rowFlight["id"] . "' data-toggle='modal' data-target='#deleteFlightModal'>Удалить</button>";
                         echo "</td>";
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='10' class='text-center'><h3>Свободных рейсов нет</h3></td></tr>";
+                    echo "<tr><td colspan='10' class='text-center'><h3>Свободных матчей нет</h3></td></tr>";
                 }
                 ?>
             </tbody>
         </table>
 
-        <!-- Удаление полета -->
+        <!-- Удаление матча -->
         <form action="" method="POST">
             <input type="hidden" name="delete_flight_id" id="delete_flight_id" value="">
             <div class="modal fade" id="deleteFlightModal" tabindex="-1" role="dialog"
@@ -108,11 +131,51 @@ displaySessionMessage();
                             </button>
                         </div>
                         <div class="modal-body">
-                        Вы уверены, что хотите удалить этот матч?
+                            Вы уверены, что хотите удалить этот матч?
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
                             <button type="submit" class="btn btn-danger" name="confirm_delete_flight">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Редактирование матча -->
+        <form action="" method="POST">
+            <input type="hidden" name="edit_flight_id" id="edit_flight_id" value="">
+            <div class="modal fade" id="editFlightModal" tabindex="-1" role="dialog"
+                aria-labelledby="editFlightModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editFlightModalLabel">Редактировать информацию о матче</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="edit_source_time">Время начала матча</label>
+                                <input type="time" name="edit_source_time" id="edit_source_time" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_dest_time">Время окончания матча</label>
+                                <input type="time" name="edit_dest_time" id="edit_dest_time" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_info">Информация</label>
+                                <textarea name="edit_info" id="edit_info" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_result">Результат</label>
+                                <input type="text" name="edit_result" id="edit_result" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                            <button type="submit" class="btn btn-primary" name="confirm_edit_flight">Сохранить</button>
                         </div>
                     </div>
                 </div>
@@ -127,6 +190,21 @@ displaySessionMessage();
 
     <!-- JavaScript to handle modals -->
     <script>
+        // Нажатие обработчика событий для кнопок редактирования
+        $(document).on("click", ".edit-flight", function () {
+            var editFlightId = $(this).data('id');
+            var sourceTime = $(this).data('source_time');
+            var destTime = $(this).data('dest_time');
+            var info = $(this).data('info');
+            var result = $(this).data('result');
+
+            $('#edit_flight_id').val(editFlightId);
+            $('#edit_source_time').val(sourceTime);
+            $('#edit_dest_time').val(destTime);
+            $('#edit_info').val(info);
+            $('#edit_result').val(result);
+        });
+
         // Нажатие обработчика событий для кнопок удаления
         $(document).on("click", ".delete-flight", function () {
             var deleteFlightId = $(this).data('id');
