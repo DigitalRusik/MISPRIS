@@ -144,7 +144,7 @@ displaySessionMessage();
 <body>
 <?php include('includes/admin-nav.php'); ?>
     <div class="container mt-5">
-        <h2 style="text-align: center;">Клубы</h2>
+        <h2 style="text-align: center;">Турнирная таблица</h2>
 
         <!-- Форма поиска -->
         <div class="d-flex justify-content-center mb-4">
@@ -159,6 +159,7 @@ displaySessionMessage();
         <table class="table table-striped" id="airportTable">
             <thead class="table-dark">
                 <tr>
+                    
                     <th>Логотип</th>
                     <th>Название клуба</th>
                     <th>Город</th>

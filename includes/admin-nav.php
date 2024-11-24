@@ -30,6 +30,9 @@
                 <a href="players.php">Игроки турнира</a>
             </li>
             <li class="item">
+                <a href="tournamenttableadmin.php">Турнирная таблица</a>
+            </li>
+            <li class="item">
                 <a href="users.php">Пользователи</a>
             </li>
             <li class="item">

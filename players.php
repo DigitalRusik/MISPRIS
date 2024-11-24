@@ -180,6 +180,7 @@ if (isset($_POST['add_player'])) {
                 font-size: 14px;
             }
         }
+
     </style>
 </head>
 
@@ -197,19 +198,33 @@ if (isset($_POST['add_player'])) {
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addItemModal">Добавить игрока</button>
         </div>
 
+        <!-- Фильтры -->
+        <div class="d-flex justify-content-between mb-4">
+            <select id="ageSort" class="form-control w-25">
+                <option value="">Сортировать по возрасту</option>
+                <option value="asc">От наименьшего к наибольшему</option>
+                <option value="desc">От наибольшего к наименьшему</option>
+            </select>
+            <select id="goalsSort" class="form-control w-25">
+                <option value="">Сортировать по забитым мячам</option>
+                <option value="asc">От наименьшего к наибольшему</option>
+                <option value="desc">От наибольшего к наименьшему</option>
+            </select>
+        </div>
+
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Фото</th>
                     <th>ФИО</th>
                     <th>Возраст</th>
-                    <th>Номер, позиция</th>
+                    <th>Клуб, номер, позиция</th>
                     <th>Желтые/Красные карточки</th>
                     <th>Забитые мячи</th>
                     <th>Действия</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="playersTable">
                 <?php
                 $sql = "SELECT * FROM players";
                 $result = $con->query($sql);
@@ -225,118 +240,134 @@ if (isset($_POST['add_player'])) {
                         echo "<td>" . (int)$row['goals'] . "</td>";
                         echo "<td>
                                 <button class='btn btn-info btn-sm' data-toggle='modal' data-target='#editItemModal' data-id='" . $row['id'] . "' data-fio='" . htmlspecialchars($row['fio']) . "' data-age='" . $row['age'] . "' data-num_pos='" . htmlspecialchars($row['num_pos']) . "' data-cards='" . htmlspecialchars($row['cards']) . "' data-goals='" . $row['goals'] . "' data-image='" . htmlspecialchars($row['image']) . "'>Редактировать</button>
-                                <a href='?delete=" . $row['id'] . "' class='btn btn-danger btn-sm'>Удалить</a>
+                                <a href='?delete=" . $row['id'] . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Вы уверены?\")'>Удалить</a>
                             </td>";
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='7' class='text-center text-muted'>Нет данных для отображения.</td></tr>";
+                    echo "<tr><td colspan='7' class='text-center text-muted'>Нет данных</td></tr>";
                 }
                 ?>
             </tbody>
         </table>
     </div>
 
-    <!-- Modal для добавления игрока -->
+    <!-- Модальное окно для добавления игрока -->
     <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form method="POST" enctype="multipart/form-data">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addItemModalLabel">Добавить игрока</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addItemModalLabel">Добавить игрока</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="players.php" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="fio">ФИО</label>
-                            <input type="text" class="form-control" name="fio" id="fio" required>
+                            <label for="fio">ФИО игрока</label>
+                            <input type="text" class="form-control" name="fio" required>
                         </div>
                         <div class="form-group">
                             <label for="age">Возраст</label>
-                            <input type="number" class="form-control" name="age" id="age" required>
+                            <input type="number" class="form-control" name="age" required>
                         </div>
                         <div class="form-group">
-                            <label for="num_pos">Номер, позиция</label>
-                            <input type="text" class="form-control" name="num_pos" id="num_pos" required>
+                            <label for="num_pos">Номер и позиция</label>
+                            <input type="text" class="form-control" name="num_pos" required>
                         </div>
                         <div class="form-group">
                             <label for="cards">Желтые/Красные карточки</label>
-                            <input type="text" class="form-control" name="cards" id="cards" required>
+                            <input type="text" class="form-control" name="cards" required>
                         </div>
                         <div class="form-group">
                             <label for="goals">Забитые мячи</label>
-                            <input type="number" class="form-control" name="goals" id="goals" required>
+                            <input type="number" class="form-control" name="goals" required>
                         </div>
                         <div class="form-group">
-                            <label for="image">Изображение</label>
-                            <input type="file" class="form-control" name="image" id="image">
+                            <label for="image">Фото игрока</label>
+                            <input type="file" class="form-control-file" name="image">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                        <button type="submit" name="add_player" class="btn btn-primary">Добавить игрока</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <button type="submit" name="add_player" class="btn btn-primary">Добавить</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Modal для редактирования игрока -->
+    <!-- Модальное окно для редактирования игрока -->
     <div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="editItemModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form method="POST" enctype="multipart/form-data">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editItemModalLabel">Редактировать игрока</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editItemModalLabel">Редактировать игрока</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="players.php" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
-                        <input type="hidden" name="id" id="playerId">
+                        <input type="hidden" name="id" id="edit_id">
                         <div class="form-group">
-                            <label for="fio">ФИО</label>
-                            <input type="text" class="form-control" name="fio" id="fio" required>
+                            <label for="edit_fio">ФИО игрока</label>
+                            <input type="text" class="form-control" name="fio" id="edit_fio" required>
                         </div>
                         <div class="form-group">
-                            <label for="age">Возраст</label>
-                            <input type="number" class="form-control" name="age" id="age" required>
+                            <label for="edit_age">Возраст</label>
+                            <input type="number" class="form-control" name="age" id="edit_age" required>
                         </div>
                         <div class="form-group">
-                            <label for="num_pos">Номер, позиция</label>
-                            <input type="text" class="form-control" name="num_pos" id="num_pos" required>
+                            <label for="edit_num_pos">Номер и позиция</label>
+                            <input type="text" class="form-control" name="num_pos" id="edit_num_pos" required>
                         </div>
                         <div class="form-group">
-                            <label for="cards">Желтые/Красные карточки</label>
-                            <input type="text" class="form-control" name="cards" id="cards" required>
+                            <label for="edit_cards">Желтые/Красные карточки</label>
+                            <input type="text" class="form-control" name="cards" id="edit_cards" required>
                         </div>
                         <div class="form-group">
-                            <label for="goals">Забитые мячи</label>
-                            <input type="number" class="form-control" name="goals" id="goals" required>
+                            <label for="edit_goals">Забитые мячи</label>
+                            <input type="number" class="form-control" name="goals" id="edit_goals" required>
                         </div>
                         <div class="form-group">
-                            <label for="image">Изображение</label>
-                            <input type="file" class="form-control" name="image" id="image">
+                            <label for="edit_image">Фото игрока</label>
+                            <input type="file" class="form-control-file" name="image" id="edit_image">
                             <input type="hidden" name="current_image" id="current_image">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                        <button type="submit" name="edit_player" class="btn btn-primary">Сохранить изменения</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <button type="submit" name="edit_player" class="btn btn-primary">Сохранить</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Сценарий для передачи данных в модальное окно -->
     <script>
-        $('#editItemModal').on('show.bs.modal', function(event) {
+        // Поиск по таблице
+        document.getElementById('search').addEventListener('input', function (event) {
+            let searchTerm = event.target.value.toLowerCase();
+            let tableRows = document.querySelectorAll('#playersTable tr');
+            tableRows.forEach(function (row) {
+                let cells = row.getElementsByTagName('td');
+                let match = false;
+                Array.from(cells).forEach(function (cell) {
+                    if (cell.textContent.toLowerCase().includes(searchTerm)) {
+                        match = true;
+                    }
+                });
+                row.style.display = match ? '' : 'none';
+            });
+        });
+
+        // Передача данных игрока в модальное окно редактирования
+        $('#editItemModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var id = button.data('id');
             var fio = button.data('fio');
@@ -347,14 +378,19 @@ if (isset($_POST['add_player'])) {
             var image = button.data('image');
 
             var modal = $(this);
-            modal.find('#playerId').val(id);
-            modal.find('#fio').val(fio);
-            modal.find('#age').val(age);
-            modal.find('#num_pos').val(num_pos);
-            modal.find('#cards').val(cards);
-            modal.find('#goals').val(goals);
+            modal.find('#edit_id').val(id);
+            modal.find('#edit_fio').val(fio);
+            modal.find('#edit_age').val(age);
+            modal.find('#edit_num_pos').val(num_pos);
+            modal.find('#edit_cards').val(cards);
+            modal.find('#edit_goals').val(goals);
             modal.find('#current_image').val(image);
         });
     </script>
+
 </body>
+
 </html>
+
+
+
