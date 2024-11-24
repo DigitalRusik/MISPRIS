@@ -62,14 +62,14 @@ if (isset($_POST['flight_class'])) {
             <form method="POST" action="available-flights.php">
                 <div class="form-group">
                     <label for="source">Дата начала матча</label>
-                    <input type="date" name="source_date" class="form-control" required>
-                    <input type="time" name="source_time" class="form-control mt-2" required>
+                    <input type="date" name="source_date" class="form-control">
+                    <input type="time" name="source_time" class="form-control mt-2">
                 </div>
 
                 <div class="form-group">
                     <label for="dest">Дата окончания матча</label>
-                    <input type="date" name="dest_date" class="form-control" required>
-                    <input type="time" name="dest_time" class="form-control mt-2" required>
+                    <input type="date" name="dest_date" class="form-control">
+                    <input type="time" name="dest_time" class="form-control mt-2">
                 </div>
 
                 <div class="form-group">
