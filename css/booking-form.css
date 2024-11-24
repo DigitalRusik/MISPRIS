@@ -50,7 +50,7 @@ label {
 }
 
 select.form-control {
-    border: 2px solid #45b786;
+    border: 2px solid #00a500;
     border-radius: 5px;
     height: 45px;
     font-size: 16px;
@@ -58,11 +58,11 @@ select.form-control {
 }
 
 .btn-primary {
-    background-color: #318f66;
+    background-color: #00a500;
     border: none;
     width: 100%;
 }
 
 .btn-primary:hover {
-    background-color: #246d4d;
+    background-color: #00a500;
 }
