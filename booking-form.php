@@ -34,6 +34,7 @@ if (isset($_POST['flight_class'])) {
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
