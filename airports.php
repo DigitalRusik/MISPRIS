@@ -11,26 +11,27 @@ include("connection.php");
 // Обработка добавления аэропорта
 if (isset($_POST['add_airport'])) {
     $airportName = $_POST['airport_name'];
-    $capacity = $_POST['capacity']; // это "Главный тренер"
+    $capacity = $_POST['capacity'];
     $city = $_POST['city'];
-    $logo = ''; // Initialize logo variable
+    $prevPlace = $_POST['prev_place']; // новое поле
+    $logo = ''; // Инициализация переменной логотипа
 
-    // Handle file upload
+    // Обработка загрузки файла
     if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
         $logoTmpName = $_FILES['logo']['tmp_name'];
         $logoName = basename($_FILES['logo']['name']);
-        $uploadDir = 'uploads/'; // Ensure this directory exists and is writable
+        $uploadDir = 'uploads/';
         $logoPath = $uploadDir . $logoName;
 
-        // Move uploaded file to the uploads directory
+        // Перемещение загруженного файла в каталог
         if (move_uploaded_file($logoTmpName, $logoPath)) {
-            $logo = $logoName; // Store the name in the variable
+            $logo = $logoName; // Сохраняем имя файла
         }
     }
 
-    $insertSql = "INSERT INTO airport (airport_name, capacity, city, logo) VALUES (?, ?, ?, ?)";
+    $insertSql = "INSERT INTO airport (airport_name, capacity, city, logo, prev_place) VALUES (?, ?, ?, ?, ?)";
     $stmt = $con->prepare($insertSql);
-    $stmt->bind_param("ssss", $airportName, $capacity, $city, $logo); // Все поля строки
+    $stmt->bind_param("sssss", $airportName, $capacity, $city, $logo, $prevPlace); // Привязываем все поля
     if ($stmt->execute()) {
         $_SESSION['message'] = "Клуб успешно добавлен!";
     } else {
@@ -41,11 +42,11 @@ if (isset($_POST['add_airport'])) {
     exit();
 }
 
-// Обработка удаления клуба
+// Обработка удаления аэропорта
 if (isset($_POST['confirm_delete_airport'])) {
     $airportId = $_POST['delete_airport_id'];
 
-    // Get the logo name before deletion
+    // Получаем имя логотипа перед удалением
     $selectSql = "SELECT logo FROM airport WHERE airport_id = ?";
     $stmt = $con->prepare($selectSql);
     $stmt->bind_param("i", $airportId);
@@ -58,9 +59,9 @@ if (isset($_POST['confirm_delete_airport'])) {
     $stmt = $con->prepare($deleteSql);
     $stmt->bind_param("i", $airportId);
     if ($stmt->execute()) {
-        // Remove logo file if exists
+        // Удаляем файл логотипа, если он существует
         if ($logoName) {
-            unlink("uploads/" . $logoName); // Delete the logo file
+            unlink("uploads/" . $logoName);
         }
         $_SESSION['message'] = "Клуб успешно удален!";
     } else {
@@ -71,37 +72,38 @@ if (isset($_POST['confirm_delete_airport'])) {
     exit();
 }
 
-// Обработка редактирования клуба
+// Обработка редактирования аэропорта
 if (isset($_POST['edit_airport'])) {
     $airportId = $_POST['airport_id'];
     $airportName = $_POST['edit_airport_name'];
-    $capacity = $_POST['edit_capacity']; // это "Главный тренер"
+    $capacity = $_POST['edit_capacity'];
     $city = $_POST['edit_city'];
-    $logo = ''; // Initialize logo variable
+    $prevPlace = $_POST['edit_prev_place']; // новое поле
+    $logo = ''; // Инициализация переменной логотипа
 
-    // Handle file upload
+    // Обработка загрузки файла
     if (isset($_FILES['edit_logo']) && $_FILES['edit_logo']['error'] === UPLOAD_ERR_OK) {
         $logoTmpName = $_FILES['edit_logo']['tmp_name'];
         $logoName = basename($_FILES['edit_logo']['name']);
-        $uploadDir = 'uploads/'; // Ensure this directory exists and is writable
+        $uploadDir = 'uploads/';
         $logoPath = $uploadDir . $logoName;
 
-        // Move uploaded file to the uploads directory
+        // Перемещение загруженного файла в каталог
         if (move_uploaded_file($logoTmpName, $logoPath)) {
-            $logo = $logoName; // Store the name in the variable
+            $logo = $logoName;
         }
     }
 
-    // Update SQL with logo if provided
+    // Обновление данных с логотипом, если он был изменен
     if ($logo) {
-        $updateSql = "UPDATE airport SET airport_name = ?, capacity = ?, city = ?, logo = ? WHERE airport_id = ?";
+        $updateSql = "UPDATE airport SET airport_name = ?, capacity = ?, city = ?, logo = ?, prev_place = ? WHERE airport_id = ?";
         $stmt = $con->prepare($updateSql);
-        $stmt->bind_param("ssssi", $airportName, $capacity, $city, $logo, $airportId); // Все строки, кроме ID
+        $stmt->bind_param("sssssi", $airportName, $capacity, $city, $logo, $prevPlace, $airportId);
     } else {
-        // If no new logo is uploaded, update without changing the logo
-        $updateSql = "UPDATE airport SET airport_name = ?, capacity = ?, city = ? WHERE airport_id = ?";
+        // Если логотип не был изменен, обновляем без него
+        $updateSql = "UPDATE airport SET airport_name = ?, capacity = ?, city = ?, prev_place = ? WHERE airport_id = ?";
         $stmt = $con->prepare($updateSql);
-        $stmt->bind_param("sssi", $airportName, $capacity, $city, $airportId); // Все строки, кроме ID
+        $stmt->bind_param("ssssi", $airportName, $capacity, $city, $prevPlace, $airportId);
     }
 
     if ($stmt->execute()) {
@@ -131,18 +133,20 @@ displaySessionMessage();
             margin-left: 10%;
             margin-top: 20px;
         }
+
         .hidden {
             display: none;
         }
+
         .logo-img {
-            width: 50px; /* Adjust size as needed */
+            width: 50px;
             height: auto;
         }
     </style>
 </head>
 
 <body>
-<?php include('includes/admin-nav.php'); ?>
+    <?php include('includes/admin-nav.php'); ?>
     <div class="container mt-5">
         <h2 style="text-align: center;">Клубы</h2>
 
@@ -163,6 +167,7 @@ displaySessionMessage();
                     <th>Название клуба</th>
                     <th>Город базирования</th>
                     <th>Главный тренер</th>
+                    <th>Место в прошлом сезоне</th>
                     <th>Действие</th>
                 </tr>
             </thead>
@@ -179,14 +184,15 @@ displaySessionMessage();
                         echo "<td>" . htmlspecialchars($rowAirport["airport_name"]) . "</td>";
                         echo "<td>" . htmlspecialchars($rowAirport["city"]) . "</td>";
                         echo "<td>" . htmlspecialchars($rowAirport["capacity"]) . "</td>";
+                        echo "<td>" . htmlspecialchars($rowAirport["prev_place"]) . "</td>";
                         echo "<td>";
-                        echo "<button class='btn btn-info btn-sm edit-airport' data-id='" . $rowAirport["airport_id"] . "' data-name='" . htmlspecialchars($rowAirport["airport_name"]) . "' data-city='" . htmlspecialchars($rowAirport["city"]) . "' data-capacity='" . htmlspecialchars($rowAirport["capacity"]) . "' data-logo='" . htmlspecialchars($rowAirport["logo"]) . "' data-toggle='modal' data-target='#editAirportModal'>Редактировать</button>";
+                        echo "<button class='btn btn-info btn-sm edit-airport' data-id='" . $rowAirport["airport_id"] . "' data-name='" . htmlspecialchars($rowAirport["airport_name"]) . "' data-city='" . htmlspecialchars($rowAirport["city"]) . "' data-capacity='" . htmlspecialchars($rowAirport["capacity"]) . "' data-prev-place='" . htmlspecialchars($rowAirport["prev_place"]) . "' data-logo='" . htmlspecialchars($rowAirport["logo"]) . "' data-toggle='modal' data-target='#editAirportModal'>Редактировать</button>";
                         echo "<button class='btn btn-danger btn-sm delete-airport' data-id='" . $rowAirport["airport_id"] . "' data-toggle='modal' data-target='#deleteAirportModal'>Удалить</button>";
                         echo "</td>";
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='5' class='text-center'>Нет данных для отображения.</td></tr>";
+                    echo "<tr><td colspan='6' class='text-center'>Нет данных для отображения.</td></tr>";
                 }
                 ?>
             </tbody>
@@ -196,34 +202,38 @@ displaySessionMessage();
         <div class="modal fade" id="addAirportModal" tabindex="-1" role="dialog" aria-labelledby="addAirportModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addAirportModalLabel">Добавление клуба</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="" method="post" enctype="multipart/form-data">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addAirportModalLabel">Добавить клуб</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="airport_name">Название клуба:</label>
                                 <input type="text" class="form-control" name="airport_name" required>
                             </div>
                             <div class="form-group">
-                                <label for="capacity">Главный тренер:</label>
-                                <input type="text" class="form-control" name="capacity" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="city">Город:</label>
+                                <label for="capacity">Город базирования:</label>
                                 <input type="text" class="form-control" name="city" required>
                             </div>
                             <div class="form-group">
-                                <label for="logo">Логотип:</label>
-                                <input type="file" class="form-control" name="logo" accept="image/*">
+                                <label for="capacity">Вместимость:</label>
+                                <input type="text" class="form-control" name="capacity" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="prev_place">Место в прошлом сезоне:</label>
+                                <input type="text" class="form-control" name="prev_place" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="logo">Логотип клуба:</label>
+                                <input type="file" class="form-control-file" name="logo">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                            <button type="submit" class="btn btn-primary" name="add_airport">Добавить клуб</button>
+                            <button type="submit" name="add_airport" class="btn btn-primary">Добавить</button>
                         </div>
                     </form>
                 </div>
@@ -234,13 +244,13 @@ displaySessionMessage();
         <div class="modal fade" id="editAirportModal" tabindex="-1" role="dialog" aria-labelledby="editAirportModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editAirportModalLabel">Редактирование клуба</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="" method="post" enctype="multipart/form-data">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editAirportModalLabel">Редактировать клуб</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         <div class="modal-body">
                             <input type="hidden" name="airport_id" id="edit_airport_id">
                             <div class="form-group">
@@ -248,21 +258,25 @@ displaySessionMessage();
                                 <input type="text" class="form-control" name="edit_airport_name" id="edit_airport_name" required>
                             </div>
                             <div class="form-group">
-                                <label for="edit_capacity">Главный тренер:</label>
-                                <input type="text" class="form-control" name="edit_capacity" id="edit_capacity" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_city">Город:</label>
+                                <label for="edit_capacity">Город базирования:</label>
                                 <input type="text" class="form-control" name="edit_city" id="edit_city" required>
                             </div>
                             <div class="form-group">
-                                <label for="edit_logo">Логотип:</label>
-                                <input type="file" class="form-control" name="edit_logo" accept="image/*">
+                                <label for="edit_capacity">Вместимость:</label>
+                                <input type="text" class="form-control" name="edit_capacity" id="edit_capacity" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_prev_place">Место в прошлом сезоне:</label>
+                                <input type="text" class="form-control" name="edit_prev_place" id="edit_prev_place" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_logo">Логотип клуба:</label>
+                                <input type="file" class="form-control-file" name="edit_logo">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                            <button type="submit" class="btn btn-primary" name="edit_airport">Сохранить изменения</button>
+                            <button type="submit" name="edit_airport" class="btn btn-primary">Сохранить изменения</button>
                         </div>
                     </form>
                 </div>
@@ -273,20 +287,20 @@ displaySessionMessage();
         <div class="modal fade" id="deleteAirportModal" tabindex="-1" role="dialog" aria-labelledby="deleteAirportModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteAirportModalLabel">Удаление клуба</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="" method="post">
+                    <form method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteAirportModalLabel">Удалить клуб</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         <div class="modal-body">
                             <input type="hidden" name="delete_airport_id" id="delete_airport_id">
                             <p>Вы уверены, что хотите удалить этот клуб?</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
-                            <button type="submit" class="btn btn-danger" name="confirm_delete_airport">Да, удалить</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                            <button type="submit" name="confirm_delete_airport" class="btn btn-danger">Удалить</button>
                         </div>
                     </form>
                 </div>
@@ -294,29 +308,23 @@ displaySessionMessage();
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        // Populate the edit modal with the current airport data
+        // Обработка редактирования данных в модальном окне
         $(document).on('click', '.edit-airport', function () {
             $('#edit_airport_id').val($(this).data('id'));
             $('#edit_airport_name').val($(this).data('name'));
             $('#edit_capacity').val($(this).data('capacity'));
             $('#edit_city').val($(this).data('city'));
+            $('#edit_prev_place').val($(this).data('prev-place'));
         });
 
-        // Populate the delete modal with the airport id
+        // Обработка удаления аэропорта
         $(document).on('click', '.delete-airport', function () {
             $('#delete_airport_id').val($(this).data('id'));
-        });
-
-        // Search functionality
-        $('#search').on('keyup', function () {
-            var value = $(this).val().toLowerCase();
-            $('#airportTable .airport-row').filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-            });
         });
     </script>
 </body>
