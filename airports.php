@@ -11,7 +11,7 @@ include("connection.php");
 // Обработка добавления аэропорта
 if (isset($_POST['add_airport'])) {
     $airportName = $_POST['airport_name'];
-    $capacity = $_POST['capacity'];
+    $capacity = $_POST['capacity']; // это "Главный тренер"
     $city = $_POST['city'];
     $logo = ''; // Initialize logo variable
 
@@ -30,7 +30,7 @@ if (isset($_POST['add_airport'])) {
 
     $insertSql = "INSERT INTO airport (airport_name, capacity, city, logo) VALUES (?, ?, ?, ?)";
     $stmt = $con->prepare($insertSql);
-    $stmt->bind_param("siss", $airportName, $capacity, $city, $logo);
+    $stmt->bind_param("ssss", $airportName, $capacity, $city, $logo); // Все поля строки
     if ($stmt->execute()) {
         $_SESSION['message'] = "Клуб успешно добавлен!";
     } else {
@@ -64,7 +64,7 @@ if (isset($_POST['confirm_delete_airport'])) {
         }
         $_SESSION['message'] = "Клуб успешно удален!";
     } else {
-        $_SESSION['message'] = "Ошибка при удалении клуб.";
+        $_SESSION['message'] = "Ошибка при удалении клуба.";
     }
     $stmt->close();
     header("Location: " . $_SERVER['PHP_SELF']);
@@ -75,7 +75,7 @@ if (isset($_POST['confirm_delete_airport'])) {
 if (isset($_POST['edit_airport'])) {
     $airportId = $_POST['airport_id'];
     $airportName = $_POST['edit_airport_name'];
-    $capacity = $_POST['edit_capacity'];
+    $capacity = $_POST['edit_capacity']; // это "Главный тренер"
     $city = $_POST['edit_city'];
     $logo = ''; // Initialize logo variable
 
@@ -96,12 +96,12 @@ if (isset($_POST['edit_airport'])) {
     if ($logo) {
         $updateSql = "UPDATE airport SET airport_name = ?, capacity = ?, city = ?, logo = ? WHERE airport_id = ?";
         $stmt = $con->prepare($updateSql);
-        $stmt->bind_param("sisii", $airportName, $capacity, $city, $logo, $airportId);
+        $stmt->bind_param("ssssi", $airportName, $capacity, $city, $logo, $airportId); // Все строки, кроме ID
     } else {
         // If no new logo is uploaded, update without changing the logo
         $updateSql = "UPDATE airport SET airport_name = ?, capacity = ?, city = ? WHERE airport_id = ?";
         $stmt = $con->prepare($updateSql);
-        $stmt->bind_param("siii", $airportName, $capacity, $city, $airportId);
+        $stmt->bind_param("sssi", $airportName, $capacity, $city, $airportId); // Все строки, кроме ID
     }
 
     if ($stmt->execute()) {
@@ -161,8 +161,8 @@ displaySessionMessage();
                 <tr>
                     <th>Логотип</th>
                     <th>Название клуба</th>
-                    <th>Город</th>
-                    <th>Вместимость стадиона</th>
+                    <th>Город базирования</th>
+                    <th>Главный тренер</th>
                     <th>Действие</th>
                 </tr>
             </thead>
@@ -209,8 +209,8 @@ displaySessionMessage();
                                 <input type="text" class="form-control" name="airport_name" required>
                             </div>
                             <div class="form-group">
-                                <label for="capacity">Вместимость:</label>
-                                <input type="number" class="form-control" name="capacity" required>
+                                <label for="capacity">Главный тренер:</label>
+                                <input type="text" class="form-control" name="capacity" required>
                             </div>
                             <div class="form-group">
                                 <label for="city">Город:</label>
@@ -248,8 +248,8 @@ displaySessionMessage();
                                 <input type="text" class="form-control" name="edit_airport_name" id="edit_airport_name" required>
                             </div>
                             <div class="form-group">
-                                <label for="edit_capacity">Вместимость:</label>
-                                <input type="number" class="form-control" name="edit_capacity" id="edit_capacity" required>
+                                <label for="edit_capacity">Главный тренер:</label>
+                                <input type="text" class="form-control" name="edit_capacity" id="edit_capacity" required>
                             </div>
                             <div class="form-group">
                                 <label for="edit_city">Город:</label>

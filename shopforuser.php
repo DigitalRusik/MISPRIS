@@ -21,6 +21,80 @@ if (isset($_SESSION['user_type'])) {
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/general.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fa;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        .table th {
+            background-color: #343a40;
+            color: white;
+        }
+        .btn {
+            border-radius: 5px;
+            font-weight: 500;
+        }
+        .btn-success {
+            background-color: #28a745;
+        }
+        .btn-info {
+            background-color: #17a2b8;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .logo-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+        }
+        .search-box {
+            margin: 20px auto;
+            width: 300px;
+        }
+        .search-box input {
+            border-radius: 25px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .form-group label {
+            font-weight: 500;
+        }
+        .text-muted {
+            font-size: 14px;
+            color: #6c757d;
+        }
+        .modal-dialog {
+            max-width: 600px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .search-box input {
+                width: 100%;
+            }
+            .logo-img {
+                width: 60px;
+                height: 60px;
+            }
+            .table th, .table td {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav>

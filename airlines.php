@@ -51,7 +51,7 @@ displaySessionMessage();
             <thead class="table-dark">
                 <tr>
                     <th style="width: 20%;">Почта</th>
-                    <th>Пароль</th>
+                    <th>Вместимость</th>
                     <th>Название стадиона</th>
                     <th>Логотип</th>
                     <th>Действие</th>
@@ -252,7 +252,7 @@ displaySessionMessage();
                                                 required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="new_password">Пароль</label>
+                                            <label for="new_password">Вместимость</label>
                                             <input type="password" class="form-control" id="new_password"
                                                 name="new_password" required>
                                         </div>
@@ -294,7 +294,7 @@ displaySessionMessage();
                                     <form action="airlines.php" method="POST" enctype="multipart/form-data">
                                         <input type="hidden" name="edit_email" id="edit_email_hidden">
                                         <div class="form-group">
-                                            <label for="edit_password">Пароль</label>
+                                            <label for="edit_password">вместимость</label>
                                             <input type="password" class="form-control" id="edit_password"
                                                 name="edit_password">
                                         </div>

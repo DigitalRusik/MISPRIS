@@ -198,20 +198,6 @@ if (isset($_POST['add_player'])) {
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addItemModal">Добавить игрока</button>
         </div>
 
-        <!-- Фильтры -->
-        <div class="d-flex justify-content-between mb-4">
-            <select id="ageSort" class="form-control w-25">
-                <option value="">Сортировать по возрасту</option>
-                <option value="asc">От наименьшего к наибольшему</option>
-                <option value="desc">От наибольшего к наименьшему</option>
-            </select>
-            <select id="goalsSort" class="form-control w-25">
-                <option value="">Сортировать по забитым мячам</option>
-                <option value="asc">От наименьшего к наибольшему</option>
-                <option value="desc">От наибольшего к наименьшему</option>
-            </select>
-        </div>
-
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
