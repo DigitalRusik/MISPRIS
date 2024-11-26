@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 19, 2023 at 03:50 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Хост: 127.0.0.1
+-- Время создания: Ноя 26 2024 г., 21:48
+-- Версия сервера: 9.1.0
+-- Версия PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,23 +18,23 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `booking`
+-- База данных: `booking`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Структура таблицы `admin`
 --
 
 CREATE TABLE `admin` (
-  `admin_name` char(40) DEFAULT NULL,
-  `email` char(40) NOT NULL,
-  `pass` char(40) DEFAULT NULL
+  `admin_name` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pass` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `admin`
+-- Дамп данных таблицы `admin`
 --
 
 INSERT INTO `admin` (`admin_name`, `email`, `pass`) VALUES
@@ -45,203 +45,273 @@ INSERT INTO `admin` (`admin_name`, `email`, `pass`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `airline`
+-- Структура таблицы `airline`
 --
 
 CREATE TABLE `airline` (
-  `email` char(40) NOT NULL,
-  `pass` char(40) DEFAULT NULL,
-  `airline_name` char(40) DEFAULT NULL,
-  `logo` char(40) DEFAULT NULL
+  `email` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pass` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `airline_name` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `logo` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `airline`
+-- Дамп данных таблицы `airline`
 --
 
 INSERT INTO `airline` (`email`, `pass`, `airline_name`, `logo`) VALUES
-('airasia@gmail.com', 'a', 'Air Asia', 'uploads/Air Asia.png'),
-('aircanada@gmail.com', 'a', 'Air Canada', 'uploads/Air Canada.png'),
-('airchina@gmail.com', 'a', 'Air China', 'uploads/Air China.png'),
-('airindia@gmail.com', 'a', 'Air India', 'uploads/Air India.png'),
-('americanairlines@gmail.com', 'a', 'American Airlines', 'uploads/American Airlines.png'),
-('bimanbangladesh@gmail.com', 'a', 'Biman Bangladesh', 'uploads/biman bangladesh.png'),
-('britishairways@gmail.com', 'a', 'British Airways', 'uploads/British Airways.png'),
-('cathaydragon@gmail.com', 'a', 'Cathay Dragon', 'uploads/Cathay Dragon.png'),
-('egyptAir@gmail.com', 'a', 'EgyptAir', 'uploads/EgyptAir.png'),
-('emirates@gmail.com', 'a', 'Emirates', 'uploads/Emirates.png'),
-('ethiopian@gmail.com', 'a', 'Ethiopian', 'uploads/Ethiopian.png'),
-('hawaiianairlines@gmail.com', 'a', 'Hawaiian Airlines', 'uploads/Hawaiian Airlines.png'),
-('japanairlines@gmail.com', 'a', 'Japan Airlines', 'uploads/Japan Airlines.png'),
-('koreanair@gmail.com', 'a', 'Korean Air', 'uploads/Korean Air.png'),
-('lufthansa@gmail.com', 'a', 'Lufthansa', 'uploads/Lufthansa.png'),
-('mexicana@gmail.com', 'a', 'Mexicana', 'uploads/Mexicana.png'),
-('Qatarairways@gmail.com', 'a', 'Qatar Airways', 'uploads/airline-logos-qatar.png'),
-('ryanair@gmail.com', 'a', 'Ryanair', 'uploads/Ryanair.png'),
-('sriLankanairlines@gmail.com', 'a', 'SriLankan Airlines', 'uploads/SriLankan Airlines.png'),
-('swiss@gmail.com', 'a', 'Swiss', 'uploads/Swiss.png'),
-('thaiairways@gmail.com', 'a', 'Thai Airways', 'uploads/Thai Airways.png'),
-('turkishairlines@gmail.com', 'a', 'Turkish Airlines', 'uploads/Turkish Airlines.png');
+('acron@gmail.com', '42347', '«Солидарность Самара Арена»', 'uploads/акрон.png'),
+('akhmat@gmail.com', '30597', '«Ахмат Арена»', 'uploads/ахмат.png'),
+('cskaM@gmail.com', '30000', '«ВЭБ Арена»', 'uploads/цскаМ.png'),
+('dinamoM@gmail.com', '25716', '«ВТБ Арена»', 'uploads/динамоМ.png'),
+('fakel@gmail.com', '10052', '«Факел»', 'uploads/факел.png'),
+('khimki@gmail.com', '14950', '«Арена Химки»', 'uploads/химки.png'),
+('krasnodar@gmail.com', '35178', 'Стадион ФК «Краснодар»', 'uploads/краснодар.png'),
+('lokoM@gmail.com', '27320', '«РЖД Арена»', 'uploads/локоМ.png'),
+('makhachkala@gmail.com', '15200', '«Динамо»', 'uploads/махачкала.jfif'),
+('orenburg@gmail.com', '10046', '«Газовик»', 'uploads/оренбург.png'),
+('pariNN@gmail.com', '45319', '«Стадион Нижний Новгород»', 'uploads/париНН.png'),
+('rostov@gmail.com', '45415', '«Ростов Арена»', 'uploads/ростов.png'),
+('rubin@gmail.com', '45379', '«Ак Барс Арена»', 'uploads/рубин.png'),
+('spartakM@gmail.com', '45360', '«Лукойл Арена»', 'uploads/спартакм.png'),
+('wingssovetov@gmail.com', '44918', '«Самара Арена»', 'uploads/крылья_советов.png'),
+('zenit@gmail.com', '68000', '«Газпром Арена»', 'uploads/зенит.png');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `airport`
+-- Структура таблицы `airport`
 --
 
 CREATE TABLE `airport` (
-  `airport_id` int(11) NOT NULL,
-  `airport_name` char(40) DEFAULT NULL
+  `airport_id` int NOT NULL,
+  `airport_name` char(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `capacity` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `city` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `place` int DEFAULT '0',
+  `game` int DEFAULT '0',
+  `win` int DEFAULT '0',
+  `defeat` int DEFAULT '0',
+  `draw` int DEFAULT '0',
+  `scored_goals` int DEFAULT '0',
+  `missed_goals` int DEFAULT '0',
+  `goal_difference` int GENERATED ALWAYS AS ((`scored_goals` - `missed_goals`)) STORED,
+  `points` int DEFAULT '0',
+  `prev_place` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `airport`
+-- Дамп данных таблицы `airport`
 --
 
-INSERT INTO `airport` (`airport_id`, `airport_name`) VALUES
-(17, ' Dhaka Airport'),
-(18, 'Cox’s Bazar Airport'),
-(19, 'Barisal Airport'),
-(22, 'Shah Amanat International Airport'),
-(23, 'Jessore Airport'),
-(24, 'Shah Makhdum Airport'),
-(25, 'Saidpur Airport'),
-(26, 'Osmani International Airport'),
-(27, 'Hazrat Shahjalal International Airport'),
-(28, 'Ishwardi Airport'),
-(29, 'Singapore Changi Airport'),
-(30, 'Hamad International Airport'),
-(31, 'Tokyo Haneda International Airport'),
-(32, 'Incheon International Airport'),
-(33, 'Instanbul Airport'),
-(34, 'Zurich Airport'),
-(35, 'Madrid Barajas Airport'),
-(36, 'King Fahd International Airport'),
-(37, 'Indira Gandhi International Airport'),
-(38, 'Paris Charles de Gaulle Airport'),
-(39, 'Heathrow Airport'),
-(40, 'Istanbul Airport'),
-(41, 'Los Angeles International Airport');
+INSERT INTO `airport` (`airport_id`, `airport_name`, `capacity`, `city`, `logo`, `place`, `game`, `win`, `defeat`, `draw`, `scored_goals`, `missed_goals`, `points`, `prev_place`) VALUES
+(81, 'Краснодар', 'Мурад Олегович Мусаев', 'Краснодар', 'краснодар.png', 2, 16, 11, 0, 5, 34, 9, 38, '2'),
+(82, 'Зенит', 'Сергей Богданович Семак ', 'Санкт-Петербург', 'зенит.png', 1, 16, 12, 1, 3, 34, 7, 39, '1'),
+(83, 'Локомотив Москва', 'Михаил Михайлович Галактионов', 'Москва', 'локоМ.png', 3, 16, 11, 4, 1, 32, 23, 34, '4'),
+(84, 'Динамо Москва', 'Славиша Йоканович', 'Москва', 'динамоМ.png', 5, 16, 9, 3, 4, 32, 18, 31, '3'),
+(85, 'ЦСКА Москва', 'Марко Николич', 'Москва', 'цскаМ.png', 6, 16, 8, 5, 3, 32, 18, 27, '6'),
+(86, 'Спартак Москва', 'Деяна Станковича', 'Москва', 'спартакм.png', 4, 16, 9, 3, 4, 30, 14, 31, '5'),
+(87, 'Рубин', 'Рашид Маматкулович Рахимов', 'Казань', 'рубин.png', 7, 16, 6, 6, 4, 20, 22, 22, '8'),
+(88, 'Акрон', 'Рамон Трибульетч', 'Самара', 'акрон.png', 11, 16, 4, 8, 4, 19, 33, 16, 'Не участвовал'),
+(89, 'Ростов', 'Валерий Георгиевич Карпин', 'Ростов-на-Дону', 'ростов.png', 8, 16, 5, 6, 5, 22, 27, 20, '7'),
+(90, 'Крылья Советов', 'Игорь Витальевич Осинькин', 'Самара', 'крылья_советов.png', 12, 16, 4, 9, 3, 15, 24, 15, '9'),
+(91, 'Махачкала', 'Хасанби Биджиев', 'Махачкала', 'махачкала.jfif', 9, 16, 3, 6, 7, 9, 14, 16, 'Не участвовал'),
+(92, 'Пари Нн', 'Виктор Михайлович Ганчаренко', 'Нижний Новгород', 'париНН.png', 10, 16, 4, 8, 4, 15, 27, 16, '13'),
+(93, 'Химки', 'Франк Артига', 'Химки', 'химки.png', 13, 16, 2, 7, 7, 18, 30, 13, 'Не участвовал'),
+(94, 'Факел', 'Игорь Геннадьевич Черевченко', 'Воронеж', 'факел.png', 14, 16, 2, 7, 7, 11, 24, 13, '11'),
+(95, 'Ахмат', 'Мирослав Ромащенко', 'Грозный', 'ахмат.png', 15, 16, 1, 9, 6, 14, 31, 9, '10'),
+(96, 'Оренбург', 'Владимир Слишкович', 'Оренбург', 'оренбург.png', 16, 16, 1, 10, 5, 16, 31, 8, '12');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `booked`
+-- Структура таблицы `booked`
 --
 
 CREATE TABLE `booked` (
-  `id` int(11) NOT NULL,
-  `flight_id` int(11) DEFAULT NULL,
-  `customer_email` char(40) DEFAULT NULL
+  `id` int NOT NULL,
+  `flight_id` int DEFAULT NULL,
+  `customer_email` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `booked`
+-- Дамп данных таблицы `booked`
 --
 
 INSERT INTO `booked` (`id`, `flight_id`, `customer_email`) VALUES
-(219, 35, 'hellomiskat@gmail.com'),
-(231, 36, 'hellomiskat@gmail.com'),
-(232, 35, 'shakib@gmail.com'),
-(233, 36, 'shakib@gmail.com'),
-(235, 37, 'shakib@gmail.com'),
-(236, 36, 'asir@gmail.com');
+(244, 63, 'alex.sidorov@mail.ru'),
+(245, 63, 'alex.sidorov@mail.ru'),
+(246, 63, 'alex.sidorov@mail.ru'),
+(247, 63, 'alex.sidorov@mail.ru'),
+(248, 63, 'alex.sidorov@mail.ru'),
+(249, 63, 'alex.sidorov@mail.ru');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customer`
+-- Структура таблицы `customer`
 --
 
 CREATE TABLE `customer` (
-  `first_name` char(40) DEFAULT NULL,
-  `last_name` char(40) DEFAULT NULL,
-  `customer_name` char(40) DEFAULT NULL,
-  `email` char(40) NOT NULL,
-  `phone` int(11) DEFAULT NULL,
-  `gender` char(40) DEFAULT NULL,
-  `pass` char(40) DEFAULT NULL
+  `first_name` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `last_name` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `customer_name` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` int DEFAULT NULL,
+  `gender` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `pass` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `customer`
+-- Дамп данных таблицы `customer`
 --
 
 INSERT INTO `customer` (`first_name`, `last_name`, `customer_name`, `email`, `phone`, `gender`, `pass`) VALUES
-('Afifa', 'Hoque', 'afifa', 'afifa@gmail.com', 5841321, 'female', 'a'),
-('Akib', 'Abdullah', 'Akib', 'akib@gmail.com', 21121, 'male', 'a'),
-('Apurba', 'Kumar', 'apurba', 'apurba@gmail.com', 1465464, 'male', 'a'),
-('Ashab', 'Asir', 'asir', 'asir@gmail.com', 22411255, 'male', 'a'),
-('Mishkatul', 'Islam', 'mishkat', 'hellomiskat@gmail.com', 1610245263, 'male', 'a'),
-('Penelope', 'Haley', 'jikun', 'hoduvy@mailinator.com', 82, 'female', 'Pa$$w0rd!'),
-('Celeste', 'Mcclain', 'fyhil', 'latonat@mailinator.com', 72, 'male', 'Pa$$w0rd!'),
-('Pankaj', 'Rudra', 'pankaj', 'pankaj@gmail.com', 1121, 'male', 'a'),
-('Ruhul', 'Amin', 'ruhul', 'ruhul@gmail.com', 12345678, 'male', 'a'),
-('Brent', 'Knapp', 's', 's@s.com', 52, 'male', 's'),
-('Shakib', 'Hossain', 'sakib', 'sakib@gmai.com', 1234546, 'male', 'a'),
-('Shakib', 'Hossain', 'shakib', 'shakib@gmail.com', 12345678, 'male', 'a'),
-('Sobhan', 'S.', 'sobhan', 'sobhan@gmail.com', 541424, 'male', 'a'),
-('Suvo', 'S.', 'suvo', 'suvo@gmail.com', 125444, 'male', 'a'),
-('Tainur', 't.', 'tainur', 'tainur@gmail.com', 125444, 'male', 'a');
+('Алексей', 'Сидоров', 'Алексей', 'alex.sidorov@mail.ru', 79009998, 'Мужской', 'alexpass'),
+('Александр', 'Зайцев', 'Александр', 'alex.zay@mail.ru', 79005556, 'Мужской', 'zaypass001'),
+('Алина', 'Орлова', 'Алина', 'alina.orlov@mail.ru', 79001112, 'Женский', 'orlov1234'),
+('Анна', 'Иванова', 'Анна', 'anna.iv@mail.ru', 79001234, 'Женский', 'pass123'),
+('Димочка', 'Богатов', 'Димочка', 'dimochka@gmail.com', 753543278, 'male', '789'),
+('Дмитрий', 'Петров', 'Дмитрий', 'dmitry.pet@mail.ru', 79007654, 'Мужской', 'pass456'),
+('Екатерина', 'Смирнова', 'Екатерина', 'ekaterina.smir@mail.ru', 79001112, 'Женский', 'ekat890'),
+('Елена', 'Попова', 'Елена', 'elena.pop@mail.ru', 79002221, 'Женский', 'lenapop'),
+('Иван', 'Васильев', 'Иван', 'ivan.vas@mail.ru', 79003334, 'Мужской', 'ivan2023'),
+('Кирилл', 'Михайлов', 'Кирилл', 'kir.mih@mail.ru', 79009996, 'Мужской', 'kirpass456'),
+('Мария', 'Кузнецова', 'Мария', 'maria.kuz@mail.ru', 79007775, 'Женский', 'mariapass1'),
+('Максим', 'Новиков', 'Максим', 'maxim.nov@mail.ru', 79006667, 'Мужской', 'maxnov123'),
+('Наталья', 'Федорова', 'Наталья', 'nat.fed@mail.ru', 79002223, 'Женский', 'fednat22'),
+('Никита', 'Гусев', 'Никита', 'nik.gus@mail.ru', 79003335, 'Мужской', 'gusnik2024'),
+('Олег', 'Громов', 'Олег', 'oleg.grom@mail.ru', 79009990, 'Мужской', 'grompass321'),
+('Ольга', 'Лебедева', 'Ольга', 'olga.leb@mail.ru', 79004443, 'Женский', 'olga2023'),
+('Полина', 'Егорова', 'Полина', 'pol.ego@mail.ru', 79002220, 'Женский', 'polpass2024'),
+('Роман', 'Ковалев', 'Роман', 'roman.kov@mail.ru', 79006668, 'Мужской', 'kovpass100'),
+('Руслан', 'Толкачев', 'Руслан', 'ruskaspb@mail.ru', 78421545, 'Мужской', '2'),
+('Сергей', 'Морозов', 'Сергей', 'sergey.moroz@mail.ru', 79005554, 'Мужской', 'morozpass'),
+('Светлана', 'Соколова', 'Светлана', 'svet.sok@mail.ru', 79007774, 'Женский', 'sokpass890'),
+('Максим', 'Владимиров', 'Максим', 'topmaksim03@gmail.com', 7565469, 'Мужской', '1'),
+('Виктория', 'Павлова', 'Виктория', 'vika.pav@mail.ru', 790044422, 'Женский', 'vikapass77');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `flight`
+-- Структура таблицы `flight`
 --
 
 CREATE TABLE `flight` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `source_date` date DEFAULT NULL,
   `source_time` time DEFAULT NULL,
   `dest_date` date DEFAULT NULL,
   `dest_time` time DEFAULT NULL,
-  `dep_airport` char(40) DEFAULT NULL,
-  `arr_airport` char(40) DEFAULT NULL,
-  `seats` int(11) DEFAULT NULL,
+  `dep_airport` char(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `arr_airport` char(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `seats` int DEFAULT NULL,
   `price` decimal(12,2) DEFAULT NULL,
-  `flight_class` char(40) DEFAULT NULL,
-  `airline_name` char(40) DEFAULT NULL,
-  `dep_airport_id` int(11) DEFAULT NULL,
-  `arr_airport_id` int(11) DEFAULT NULL,
-  `airline_email` char(40) DEFAULT NULL
+  `flight_class` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `airline_name` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `dep_airport_id` int DEFAULT NULL,
+  `arr_airport_id` int DEFAULT NULL,
+  `airline_email` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `result` text COLLATE utf8mb4_general_ci,
+  `info` text COLLATE utf8mb4_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `flight`
+-- Дамп данных таблицы `flight`
 --
 
-INSERT INTO `flight` (`id`, `source_date`, `source_time`, `dest_date`, `dest_time`, `dep_airport`, `arr_airport`, `seats`, `price`, `flight_class`, `airline_name`, `dep_airport_id`, `arr_airport_id`, `airline_email`) VALUES
-(35, '2023-09-22', '04:00:00', '2023-10-07', '18:00:00', 'Shah Amanat International Airport', ' Dhaka Airport', 25, 750.00, 'Economy', 'Biman Bangladesh', 22, 17, 'bimanbangladesh@gmail.com'),
-(36, '2023-10-12', '09:45:00', '2023-11-23', '00:00:00', 'Cox’s Bazar Airport', 'Singapore Changi Airport', 45, 3500.00, 'First Class', 'Biman Bangladesh', 18, 29, 'bimanbangladesh@gmail.com'),
-(37, '2023-09-20', '06:52:00', '2023-11-30', '03:56:00', 'Jessore Airport', 'King Fahd International Airport', 60, 2900.00, 'Business', 'Qatar Airways', 23, 36, 'Qatarairways@gmail.com'),
-(38, '2023-09-22', '13:03:00', '2023-11-25', '07:25:00', 'Shah Amanat International Airport', ' Dhaka Airport', 25, 1000.00, 'Economy', 'Air Asia', 22, 17, 'airasia@gmail.com');
+INSERT INTO `flight` (`id`, `source_date`, `source_time`, `dest_date`, `dest_time`, `dep_airport`, `arr_airport`, `seats`, `price`, `flight_class`, `airline_name`, `dep_airport_id`, `arr_airport_id`, `airline_email`, `result`, `info`) VALUES
+(60, '2024-11-04', '09:23:00', '2024-11-18', '09:21:00', 'Зенит', 'Краснодар', 45484, 1545.00, 'Economy', '«Стадион Нижний Новгород»', 82, 81, 'pariNN@gmail.com', 'Не определен', 'Зенит:\r\nСхема 4-3-3\r\nКраснодар:\r\n'),
+(61, '2024-11-13', '07:29:00', '2024-11-19', '06:29:00', 'Ростов', 'Динамо Москва', 7528528, 72772.00, 'Economy', '«Солидарность Самара Арена»', 89, 84, 'acron@gmail.com', '1:1', '?'),
+(62, '2024-11-11', '19:38:00', '2024-11-18', '20:39:00', 'Рубин', 'Зенит', 15300, 5000.00, 'Economy', 'Стадион ФК «Краснодар»', 87, 82, 'krasnodar@gmail.com', NULL, NULL),
+(63, '2024-11-25', '05:00:00', '2024-11-25', '06:30:00', 'Ростов', 'Крылья Советов', 45000, 1000.00, 'Economy', '«ВТБ Арена»', 89, 90, 'dinamoM@gmail.com', NULL, NULL),
+(64, '2024-11-11', '16:00:00', '2024-11-25', '00:58:00', 'Рубин', 'Ростов', 505720, 1414.00, 'Economy', '«РЖД Арена»', 87, 89, 'lokoM@gmail.com', NULL, NULL),
+(65, '2024-12-02', '00:00:00', '2024-12-09', '00:00:00', 'ЦСКА Москва', 'Рубин', 7, 1.00, 'Economy', '«Факел»', 85, 87, 'fakel@gmail.com', NULL, NULL),
+(66, '2024-11-01', '23:02:00', '2024-11-25', '02:01:00', 'Махачкала', 'Крылья Советов', 2755, 42742.00, 'Economy', '«Стадион Нижний Новгород»', 91, 90, 'pariNN@gmail.com', NULL, NULL),
+(67, '2024-10-28', '00:04:00', '2024-11-04', '00:05:00', 'Краснодар', 'Зенит', 575, 1000.00, 'Economy', '«Ак Барс Арена»', 81, 82, 'rubin@gmail.com', '??7', NULL),
+(68, '2024-11-01', '00:12:00', '2024-11-25', '03:12:00', 'Крылья Советов', 'Ростов', 45, 700.00, 'Economy', '«Самара Арена»', 90, 89, 'wingssovetov@gmail.com', NULL, NULL),
+(69, '2024-11-11', '02:16:00', '2024-11-25', '23:18:00', 'Пари Нн', 'Краснодар', 1, 1.00, 'First Class', '«Факел»', 92, 81, 'fakel@gmail.com', NULL, NULL),
+(70, '2024-11-18', '23:28:00', '2024-11-25', '01:28:00', 'Оренбург', 'Махачкала', 0, 1.00, 'Economy', '«Стадион Нижний Новгород»', 96, 91, 'pariNN@gmail.com', NULL, NULL),
+(71, '2024-11-01', '01:41:00', '2024-11-11', '00:41:00', 'Ростов', 'Химки', 2, 50.00, 'Economy', '«Стадион Нижний Новгород»', 89, 93, 'pariNN@gmail.com', NULL, NULL);
+
+-- --------------------------------------------------------
 
 --
--- Indexes for dumped tables
+-- Структура таблицы `players`
+--
+
+CREATE TABLE `players` (
+  `id` int NOT NULL,
+  `image` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `fio` text NOT NULL,
+  `age` int NOT NULL,
+  `num_pos` varchar(50) NOT NULL,
+  `cards` varchar(50) NOT NULL,
+  `goals` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `players`
+--
+
+INSERT INTO `players` (`id`, `image`, `fio`, `age`, `num_pos`, `cards`, `goals`) VALUES
+(1, 'uploads/1732476878_cr.png', 'Петя Петушок', 4488, '15, Нападающийq', '2 желтые, 1 красная ffff', -156),
+(2, 'player2.jpg', 'Петров Петр Петрович', 28, '7, Полузащитник', '1 желтая', 8),
+(3, 'player3.jpg', 'Сидоров Сергей Сергеевич', 30, '4, Защитник', '3 желтые', 2),
+(4, 'player4.jpg', 'Кузнецов Константин Константинович', 23, '1, Вратарь', '0 карточек', 0),
+(7, 'uploads/1732477820_криш.jfif', 'Васичка', 9876, 'poiuytr', ',mnbvc', 9876);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `shop`
+--
+
+CREATE TABLE `shop` (
+  `id` int NOT NULL,
+  `item_name` varchar(255) NOT NULL,
+  `price` int NOT NULL,
+  `description` text,
+  `image` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `shop`
+--
+
+INSERT INTO `shop` (`id`, `item_name`, `price`, `description`, `image`) VALUES
+(1, 'Футбольный мяч Adidas', 300, 'Официальный мяч для профессиональных матчей. Высокая износостойкость.', 'мяч.jfif'),
+(2, 'Футболка сборной России', 2500, 'Оригинальная футболка сборной России с эмблемой и гербом.', 'футболка.jpg'),
+(3, 'Шарф болельщика', 1200, 'Двусторонний шарф с символикой любимой команды.', 'fan_scarf.jpg'),
+(4, 'Бутсы Nike Mercurial', 7000, 'Легкие бутсы для профессионального футбола с улучшенным сцеплением.', 'nike_boots.jpg'),
+(5, 'Кепка с логотипом FIFA', 1000, 'Стильная кепка с официальной символикой FIFA.', 'fifa_cap.jpg');
+
+--
+-- Индексы сохранённых таблиц
 --
 
 --
--- Indexes for table `admin`
+-- Индексы таблицы `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indexes for table `airline`
+-- Индексы таблицы `airline`
 --
 ALTER TABLE `airline`
   ADD PRIMARY KEY (`email`),
   ADD UNIQUE KEY `airline_name` (`airline_name`);
 
 --
--- Indexes for table `airport`
+-- Индексы таблицы `airport`
 --
 ALTER TABLE `airport`
   ADD PRIMARY KEY (`airport_id`);
 
 --
--- Indexes for table `booked`
+-- Индексы таблицы `booked`
 --
 ALTER TABLE `booked`
   ADD PRIMARY KEY (`id`),
@@ -249,13 +319,13 @@ ALTER TABLE `booked`
   ADD KEY `customer_email` (`customer_email`);
 
 --
--- Indexes for table `customer`
+-- Индексы таблицы `customer`
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indexes for table `flight`
+-- Индексы таблицы `flight`
 --
 ALTER TABLE `flight`
   ADD PRIMARY KEY (`id`),
@@ -265,40 +335,64 @@ ALTER TABLE `flight`
   ADD KEY `airline_name` (`airline_name`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Индексы таблицы `players`
+--
+ALTER TABLE `players`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `shop`
+--
+ALTER TABLE `shop`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
 --
 
 --
--- AUTO_INCREMENT for table `airport`
+-- AUTO_INCREMENT для таблицы `airport`
 --
 ALTER TABLE `airport`
-  MODIFY `airport_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `airport_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
--- AUTO_INCREMENT for table `booked`
+-- AUTO_INCREMENT для таблицы `booked`
 --
 ALTER TABLE `booked`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=237;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=250;
 
 --
--- AUTO_INCREMENT for table `flight`
+-- AUTO_INCREMENT для таблицы `flight`
 --
 ALTER TABLE `flight`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT для таблицы `players`
+--
+ALTER TABLE `players`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT для таблицы `shop`
+--
+ALTER TABLE `shop`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
 --
 
 --
--- Constraints for table `booked`
+-- Ограничения внешнего ключа таблицы `booked`
 --
 ALTER TABLE `booked`
   ADD CONSTRAINT `booked_ibfk_1` FOREIGN KEY (`flight_id`) REFERENCES `flight` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `booked_ibfk_2` FOREIGN KEY (`customer_email`) REFERENCES `customer` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `flight`
+-- Ограничения внешнего ключа таблицы `flight`
 --
 ALTER TABLE `flight`
   ADD CONSTRAINT `flight_ibfk_1` FOREIGN KEY (`dep_airport_id`) REFERENCES `airport` (`airport_id`) ON DELETE CASCADE ON UPDATE CASCADE,
