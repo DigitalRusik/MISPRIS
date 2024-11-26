@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Хост: 127.0.0.1
--- Время создания: Ноя 26 2024 г., 21:48
--- Версия сервера: 9.1.0
--- Версия PHP: 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Nov 27, 2024 at 12:09 AM
+-- Server version: 9.0.1
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `booking`
+-- Database: `booking`
 --
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE `admin` (
@@ -34,7 +34,7 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Дамп данных таблицы `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`admin_name`, `email`, `pass`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `admin` (`admin_name`, `email`, `pass`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `airline`
+-- Table structure for table `airline`
 --
 
 CREATE TABLE `airline` (
@@ -56,7 +56,7 @@ CREATE TABLE `airline` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Дамп данных таблицы `airline`
+-- Dumping data for table `airline`
 --
 
 INSERT INTO `airline` (`email`, `pass`, `airline_name`, `logo`) VALUES
@@ -80,13 +80,13 @@ INSERT INTO `airline` (`email`, `pass`, `airline_name`, `logo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `airport`
+-- Table structure for table `airport`
 --
 
 CREATE TABLE `airport` (
   `airport_id` int NOT NULL,
   `airport_name` char(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `capacity` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `capacity` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `city` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `place` int DEFAULT '0',
@@ -98,11 +98,11 @@ CREATE TABLE `airport` (
   `missed_goals` int DEFAULT '0',
   `goal_difference` int GENERATED ALWAYS AS ((`scored_goals` - `missed_goals`)) STORED,
   `points` int DEFAULT '0',
-  `prev_place` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `prev_place` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Дамп данных таблицы `airport`
+-- Dumping data for table `airport`
 --
 
 INSERT INTO `airport` (`airport_id`, `airport_name`, `capacity`, `city`, `logo`, `place`, `game`, `win`, `defeat`, `draw`, `scored_goals`, `missed_goals`, `points`, `prev_place`) VALUES
@@ -126,7 +126,7 @@ INSERT INTO `airport` (`airport_id`, `airport_name`, `capacity`, `city`, `logo`,
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `booked`
+-- Table structure for table `booked`
 --
 
 CREATE TABLE `booked` (
@@ -136,7 +136,7 @@ CREATE TABLE `booked` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Дамп данных таблицы `booked`
+-- Dumping data for table `booked`
 --
 
 INSERT INTO `booked` (`id`, `flight_id`, `customer_email`) VALUES
@@ -150,7 +150,7 @@ INSERT INTO `booked` (`id`, `flight_id`, `customer_email`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `customer`
+-- Table structure for table `customer`
 --
 
 CREATE TABLE `customer` (
@@ -164,7 +164,7 @@ CREATE TABLE `customer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Дамп данных таблицы `customer`
+-- Dumping data for table `customer`
 --
 
 INSERT INTO `customer` (`first_name`, `last_name`, `customer_name`, `email`, `phone`, `gender`, `pass`) VALUES
@@ -195,7 +195,7 @@ INSERT INTO `customer` (`first_name`, `last_name`, `customer_name`, `email`, `ph
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `flight`
+-- Table structure for table `flight`
 --
 
 CREATE TABLE `flight` (
@@ -213,12 +213,12 @@ CREATE TABLE `flight` (
   `dep_airport_id` int DEFAULT NULL,
   `arr_airport_id` int DEFAULT NULL,
   `airline_email` char(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `result` text COLLATE utf8mb4_general_ci,
-  `info` text COLLATE utf8mb4_general_ci
+  `result` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `info` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Дамп данных таблицы `flight`
+-- Dumping data for table `flight`
 --
 
 INSERT INTO `flight` (`id`, `source_date`, `source_time`, `dest_date`, `dest_time`, `dep_airport`, `arr_airport`, `seats`, `price`, `flight_class`, `airline_name`, `dep_airport_id`, `arr_airport_id`, `airline_email`, `result`, `info`) VALUES
@@ -238,21 +238,21 @@ INSERT INTO `flight` (`id`, `source_date`, `source_time`, `dest_date`, `dest_tim
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `players`
+-- Table structure for table `players`
 --
 
 CREATE TABLE `players` (
   `id` int NOT NULL,
-  `image` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `fio` text NOT NULL,
+  `image` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `fio` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `age` int NOT NULL,
-  `num_pos` varchar(50) NOT NULL,
-  `cards` varchar(50) NOT NULL,
+  `num_pos` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `cards` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `goals` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Дамп данных таблицы `players`
+-- Dumping data for table `players`
 --
 
 INSERT INTO `players` (`id`, `image`, `fio`, `age`, `num_pos`, `cards`, `goals`) VALUES
@@ -265,19 +265,19 @@ INSERT INTO `players` (`id`, `image`, `fio`, `age`, `num_pos`, `cards`, `goals`)
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `shop`
+-- Table structure for table `shop`
 --
 
 CREATE TABLE `shop` (
   `id` int NOT NULL,
-  `item_name` varchar(255) NOT NULL,
+  `item_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `price` int NOT NULL,
-  `description` text,
-  `image` varchar(255) DEFAULT NULL
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Дамп данных таблицы `shop`
+-- Dumping data for table `shop`
 --
 
 INSERT INTO `shop` (`id`, `item_name`, `price`, `description`, `image`) VALUES
@@ -288,30 +288,30 @@ INSERT INTO `shop` (`id`, `item_name`, `price`, `description`, `image`) VALUES
 (5, 'Кепка с логотипом FIFA', 1000, 'Стильная кепка с официальной символикой FIFA.', 'fifa_cap.jpg');
 
 --
--- Индексы сохранённых таблиц
+-- Indexes for dumped tables
 --
 
 --
--- Индексы таблицы `admin`
+-- Indexes for table `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`email`);
 
 --
--- Индексы таблицы `airline`
+-- Indexes for table `airline`
 --
 ALTER TABLE `airline`
   ADD PRIMARY KEY (`email`),
   ADD UNIQUE KEY `airline_name` (`airline_name`);
 
 --
--- Индексы таблицы `airport`
+-- Indexes for table `airport`
 --
 ALTER TABLE `airport`
   ADD PRIMARY KEY (`airport_id`);
 
 --
--- Индексы таблицы `booked`
+-- Indexes for table `booked`
 --
 ALTER TABLE `booked`
   ADD PRIMARY KEY (`id`),
@@ -319,13 +319,13 @@ ALTER TABLE `booked`
   ADD KEY `customer_email` (`customer_email`);
 
 --
--- Индексы таблицы `customer`
+-- Indexes for table `customer`
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`email`);
 
 --
--- Индексы таблицы `flight`
+-- Indexes for table `flight`
 --
 ALTER TABLE `flight`
   ADD PRIMARY KEY (`id`),
@@ -335,64 +335,64 @@ ALTER TABLE `flight`
   ADD KEY `airline_name` (`airline_name`);
 
 --
--- Индексы таблицы `players`
+-- Indexes for table `players`
 --
 ALTER TABLE `players`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `shop`
+-- Indexes for table `shop`
 --
 ALTER TABLE `shop`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT для сохранённых таблиц
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT для таблицы `airport`
+-- AUTO_INCREMENT for table `airport`
 --
 ALTER TABLE `airport`
   MODIFY `airport_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
--- AUTO_INCREMENT для таблицы `booked`
+-- AUTO_INCREMENT for table `booked`
 --
 ALTER TABLE `booked`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=250;
 
 --
--- AUTO_INCREMENT для таблицы `flight`
+-- AUTO_INCREMENT for table `flight`
 --
 ALTER TABLE `flight`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
--- AUTO_INCREMENT для таблицы `players`
+-- AUTO_INCREMENT for table `players`
 --
 ALTER TABLE `players`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT для таблицы `shop`
+-- AUTO_INCREMENT for table `shop`
 --
 ALTER TABLE `shop`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Ограничения внешнего ключа сохраненных таблиц
+-- Constraints for dumped tables
 --
 
 --
--- Ограничения внешнего ключа таблицы `booked`
+-- Constraints for table `booked`
 --
 ALTER TABLE `booked`
   ADD CONSTRAINT `booked_ibfk_1` FOREIGN KEY (`flight_id`) REFERENCES `flight` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `booked_ibfk_2` FOREIGN KEY (`customer_email`) REFERENCES `customer` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ограничения внешнего ключа таблицы `flight`
+-- Constraints for table `flight`
 --
 ALTER TABLE `flight`
   ADD CONSTRAINT `flight_ibfk_1` FOREIGN KEY (`dep_airport_id`) REFERENCES `airport` (`airport_id`) ON DELETE CASCADE ON UPDATE CASCADE,
