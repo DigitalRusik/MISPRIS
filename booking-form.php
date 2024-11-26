@@ -45,6 +45,8 @@ if (isset($_POST['flight_class'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="css/booking-form.css" />
     <link rel="stylesheet" type="text/css" href="css/general.css">
+    <title>Бронирование билетов</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <header>

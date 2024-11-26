@@ -23,6 +23,8 @@ if (isset($_SESSION['user_type'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="css/general.css">
+    <title>Турнирная таблица</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <style>
         .hidden {
             display: none;
